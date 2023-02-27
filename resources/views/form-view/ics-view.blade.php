@@ -117,6 +117,20 @@
                             </span>
                         </div>
                     </div>
+                    <div class="row">
+                    <div class="flex-grow-1" style="padding-left:15px;">
+                                <div class="font-weight-bold">
+                                  Value
+                                </div>
+                                <div style="width:300px;">
+                                <select name="sp_categories" id="sp_categories" data-placeholder="Choose a Category" class="form-control" required>
+                                        <option value="" disabled selected>Select a Category</option>
+                                        <option value="HV">High Value</option>
+                                        <option value="LV">Low Value</option>
+                                 </select>
+                                </div>
+                    </div>
+                    </div>
                     <div class="header-row flex-container">
                         <div class="flex-grow-1">
                                 <div class="font-weight-bold">

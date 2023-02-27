@@ -765,7 +765,26 @@ Swal.fire({
               
             });
         });
-  
+
+    $.getJSON("{{ route('ics-getprevious-id') }}", function(datajson) {
+            $("#sp_categories").on('change',  function() {
+              var value = this.value;
+              var current_date = new Date();
+              var type = "SP"; 
+            
+              var current_month=('0'+(current_date.getMonth()+1)).slice(-2)
+              var current_year  = new Date().getFullYear();
+              var previous_id = datajson.previous_id+1;
+              $("#ics_number").val(type+value+'-'+current_year+'-'+current_month+'-'+previous_id);
+            });
+              var value="";
+              var current_date = new Date();
+              var type = "SP"; 
+              var current_month=('0'+(current_date.getMonth()+1)).slice(-2)
+              var current_year  = new Date().getFullYear();
+              var previous_id = datajson.previous_id+1;
+              $("#ics_number").val(type+value+'-'+current_year+'-'+current_month+'-'+previous_id);
+      });
   
     //FILL DROP-DOWN
     $.getJSON("{{ url('json/users/all') }}", function(datajson) {

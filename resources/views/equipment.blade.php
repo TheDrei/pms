@@ -565,8 +565,13 @@ Swal.fire({
             width: '100%',
         });
 
-        $.getJSON("{{ url('get-previous-id') }}", function(datajson) {
-                $("#property_number").val(datajson.previous_id);
+        $.getJSON("{{ route('ppe-getprevious-id') }}", function(datajson) {
+                var current_date = new Date();
+                var type = "P"; 
+                var current_month=('0'+(current_date.getMonth()+1)).slice(-2)
+                var current_year  = new Date().getFullYear();
+                var previous_id = datajson.previous_id+1;
+                $("#par_number").val(type+'-'+current_year+'-'+current_month+'-'+previous_id);
          });
 
         $.getJSON("{{ url('json/fund-cluster/all') }}", function(datajson) {

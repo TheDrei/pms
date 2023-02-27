@@ -183,5 +183,5 @@ Route::get('documents', function () {
 });
 
 // Property Number Automation
-Route::get('/get-previous-id', 'ICS\ICSController@getPreviousId')->name('ics-getpreviousid');
-
+Route::get('/ics-get-previous-id', 'ICS\ICSController@getPreviousId')->name('ics-getprevious-id');
+Route::get('/ppe-get-previous-id', 'PPE\PPEController@getPreviousId')->name('ppe-getprevious-id');

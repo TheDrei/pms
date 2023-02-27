@@ -10,10 +10,7 @@ class ICSController
 {
     public function getPreviousId()
     {
-      $previousId = DB::table('equipment_sets_components')->max('id');
+      $previousId = DB::table('ics_components_items')->max('id');
       return response()->json(['previous_id' => $previousId]);
     }
  }
-
-
-
