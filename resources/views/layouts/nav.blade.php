@@ -1,3 +1,8 @@
+@if (Auth::usertype() == "Staff")
+
+
+@endif
+            
             <div id="main-menu" class="main-menu collapse navbar-collapse" style="background-color:#003763;">
                 <ul class="nav navbar-nav">
                     <li class="">
