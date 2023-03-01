@@ -1736,7 +1736,7 @@ Swal.fire({
                   "data": "created_at",  render: function(d){
                    return moment(d).format('LLL')
                 }
-                },
+                 },
               ],
               "createdRow": function(row, data, dataIndex) {
                 $(row).attr('data-id', data.id)

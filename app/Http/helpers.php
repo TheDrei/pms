@@ -1,5 +1,25 @@
 <?php
 
+    function clusterTotalNumberofItemsARMSS(){
+        $division = ["ACD", "FAD-Accounting", "FAD-Budget", "FAD-GSS", "FAD-Personnel", "FAD-Property", "IDD", "MISD", "PCMD"];
+        $ppe_count =  App\View_PPE_Items::whereIn('division', $division)->whereNull('deleted_at')->count('id');
+        return $ppe_count;
+
+    }   
+
+    function clusterTotalNumberofItemsRD(){
+        $division = ["ARMRD", "CRD", "FERD", "IARRD", "LRD", "MRRD", "SERD", "TTPD"];
+        $ppe_count =  App\View_PPE_Items::whereIn('division', $division)->whereNull('deleted_at')->count('id');
+        return $ppe_count;
+    }   
+
+    function getItemsCount($division)
+    {
+        $ppe_count = App\View_PPE_Items::where('division', $division)->whereNull('deleted_at')->count('id');
+        $sp_count = App\View_ICS_Items::where('division', $division)->whereNull('deleted_at')->count('id');
+        return $ppe_count + $sp_count;   
+    }
+
     function getPPETotalCostJanuary()
     {
         $equip = App\View_PPE_Items::select('amount');

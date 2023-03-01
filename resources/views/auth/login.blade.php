@@ -39,6 +39,26 @@ body
 }
 
 </style>    
+@if(session()->has('error'))
+    <div id="sufee-alert" class="sufee-alert alert with-close alert-danger alert-dismissible fade show">
+        <span class="badge badge-pill badge-danger">Failed to Login</span>
+        Credentials do not match with our records. Please check your <strong>username</strong> or <strong>password</strong>.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <script src="{{ asset('sufee-admin-dashboard-master/assets/js/vendor/jquery-2.1.4.min.js') }}"></script>
+<script>
+
+$(document).ready(function() {
+  $("#sufee-alert").hide();
+    $("#sufee-alert").fadeTo(2000, 500).slideUp(500, function() {
+      $("#sufee-alert").slideUp(500);
+    });
+});
+</script>
+
+@endif 
 <body style="background-image: url('sufee-admin-dashboard-master/images/login-bg.jpg');  background-position: center;   background-attachment: fixed;  background-size: 100% 100%;">
 
     <div class="sufee-login d-flex align-content-center flex-wrap">
@@ -158,17 +178,5 @@ body
 <footer class="main-footer" style="color:white; text-align:center; font-size:13px;">Copyright © 2021. PCAARRD Property Management System. <br/>All Rights Reserved. Best viewed in Google Chrome.</footer>
 </html>
 
-@if(session()->has('error'))
-        <script>
-        $(document).Toasts('create', {
-          class: 'bg-danger',
-          autohide: true,
-          close: false,
-          delay: 2000,
-          position: 'topRight',
-          title: 'Failed to Login',
-          icon: 'fas fa-exclamation-triangle',
-          body: 'Credentials do not match with our records. Please check your <strong>username</strong> or <strong>password</strong>.'
-        })
-        </script>
-@endif 
+
+

@@ -43,32 +43,7 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
-
-    // public function authenticate(Request $request) {
-    //         $username = $request->input('username');
-    //         $password = $request->input('password');
-    
-    
-    //         $user = DB::table('users')
-    //         ->where(['username'=>$username, 'password'=>$password])
-    //         ->first();
-    //         if($user){
-    //         $request->session()->put('user',$user);
-    //         return redirect('dashboard');
-    //         }
-    //     else{
-        
-    //         echo "error";
-        
-    //         $notification = array(
-    //                 'message' => 'User Does not Exists!',
-    //                 'alert-type' => 'error'
-    //             );
-    //             return back()->with($notification);
-            
-    //  }
-    // }
-   
+  
     public function logout(Request $request) {
      Auth::logout();
      return redirect('/login');

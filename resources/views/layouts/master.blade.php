@@ -41,7 +41,7 @@
  
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #888; 
+  background: #003763; 
 }
 
 /* Handle on hover */
@@ -81,10 +81,8 @@ color:white!important;
     content: "\f138"!important;
 }
 
-      </style>  
-    <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
-
-    
+</style>  
+<!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
 
 </head>
 <body>
@@ -157,6 +155,8 @@ color:white!important;
         </header><!-- /header -->
         <!-- Header-->
 
+   
+
         <div class="breadcrumbs">
             <div class="col-sm-4">
                 <div class="page-header float-left">
@@ -171,7 +171,7 @@ color:white!important;
      @yield('content')
         </div> <!-- .content -->
     </div><!-- /#right-panel -->
-
+  
     <!-- Right Panel -->
     <script src="{{ asset('sufee-admin-dashboard-master/assets/js/vendor/jquery-2.1.4.min.js') }}"></script>
     <script src="{{ asset('js/popper.min.js') }}"></script>
@@ -189,6 +189,7 @@ color:white!important;
     @include('layouts.ajaxpost')
 
 </body>
+   
 </html>
 
     <script type="text/javascript">
@@ -203,3 +204,4 @@ color:white!important;
         });
        
     </script>    
+

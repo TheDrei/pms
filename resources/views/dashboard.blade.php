@@ -54,7 +54,7 @@ DASHBOARD
 
 <div class="animated fadeIn">
 <div class="row">
-<div class="col-sm-12 mb-4">
+                    <div class="col-sm-12 mb-4">
                         <div class="card-group" >
                             <div class="card offset-col-lg-2 offset-col-md-6 no-padding no-shahow" >
                                 <div class="card-body bg-flat-color-1">
@@ -119,73 +119,86 @@ DASHBOARD
                                 </div>
                             </div>
                         </div>
-                   
                         <br/>
-                    <div class="card" style="width:40%;">
-                        <div class="card-body">
                         <div class="row">
-                        <div class="col-sm-8">
-                        <h5 class="card-title mb-0" style="color:#343434;">Total Inventory Cost: <strong>₱{{  getTotaCost() }}</strong></h5>
-                        <div class="small text-muted">Overall</div>
+                        <div class="col">
+                                <div class="card" style="width:100%;">
+                                    <div class="card-body">
+                                        <div class="col-sm-8">
+                                            <h5 class="card-title mb-0" style="color:#343434;"><strong>OED-RD Cluster</strong></h5>
+                                            <small>Number of Items Per Division</small>
+                                        </div>
+                                    </div>
+                                    <div class="chart-wrapper mt-2"><iframe class="chartjs-hidden-iframe" tabindex="-1" style="display: block; overflow: hidden; border: 0px; margin: 0px; inset: 0px; height: 100%; width: 100%; position: absolute; pointer-events: none; z-index: -1;"></iframe>
+                                    <canvas height="50%;" width="100%;" id="numberOfItemsPerDivisionRD" ></canvas>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="card" style="width:100%;">
+                                    <div class="card-body">
+                                    <div class="col-sm-8">
+                                    <h5 class="card-title mb-0" style="color:#343434;"><strong>OED-ARMSS Cluster</strong></h5>
+                                    <small>Number of Items Per Division</small>
+                                    </div>
+                                
+                                    <div class="col-sm-4 hidden-sm-down">
+                                    <button id="viewDashboardFilters" type="button" style="border-radius:4px; color:white;" class="btn float-right bg-flat-color-5">Filter <i class="fa fa-filter"></i></button>
+                                    <div class="btn-toolbar float-right" role="toolbar" aria-label="Toolbar with button groups">
+                                    </div>
+                                    </div>
+                                    </div>
+                                    <div class="chart-wrapper mt-2"><iframe class="chartjs-hidden-iframe" tabindex="-1" style="display: block; overflow: hidden; border: 0px; margin: 0px; inset: 0px; height: 100%; width: 100%; position: absolute; pointer-events: none; z-index: -1;"></iframe>
+                                    <canvas height="50%;" width="100%;" id="numberOfItemsPerDivisionARMSS" ></canvas>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                       
-                        <div class="col-sm-4 hidden-sm-down">
-                        <button id="viewDashboardFilters" type="button" style="border-radius:4px; color:white;" class="btn float-right bg-flat-color-5">Filter <i class="fa fa-filter"></i></button>
-                        <div class="btn-toolbar float-right" role="toolbar" aria-label="Toolbar with button groups">
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="col-sm-8">
+                                        <h5 class="card-title mb-0" style="color:#343434;"><strong>Number of Items (OED-ARMSS vs. OED-RD)</strong></h5>
+                                        </div>
+                                    </div>
+                                    <div class="chart-wrapper mt-2"><iframe class="chartjs-hidden-iframe" tabindex="-1" style="display: block; overflow: hidden; border: 0px; margin: 0px; inset: 0px; height: 100%; width: 100%; position: absolute; pointer-events: none; z-index: -1;"></iframe>
+                                    <canvas height="50%;" width="100%;" id="numberofItemsRDARMSS" ></canvas>
+                                    </div>
+                                   
+                                </div>
+                            </div>    
+
+                            <div class="col">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="col-sm-8">
+                                        <h5 class="card-title mb-0" style="color:#343434;"><strong>Cost of Items (PPE vs. ICS)</strong></h5>
+                                            <h5 class="card-title mb-0" style="color:#343434;">Total Inventory Cost: <strong>₱{{  getTotaCost() }}</strong></h5>
+                                        </div>
+                                
+                                    <div class="col-sm-4 hidden-sm-down">
+                                     
+                                        <div class="btn-toolbar float-right" role="toolbar" aria-label="Toolbar with button groups">
+                                    </div>
+                                    </div>
+                                    </div>
+                                    <div class="chart-wrapper mt-2"><iframe class="chartjs-hidden-iframe" tabindex="-1" style="display: block; overflow: hidden; border: 0px; margin: 0px; inset: 0px; height: 100%; width: 100%; position: absolute; pointer-events: none; z-index: -1;"></iframe>
+                                    <canvas height="50%;" width="100%;" id="totalInventoryCostChart" ></canvas>
+                                    </div>
+                                   
+                                </div>
+                            </div>    
+                           
                         </div>
                         </div>
-                        </div>
-                        <div class="chart-wrapper mt-2"><iframe class="chartjs-hidden-iframe" tabindex="-1" style="display: block; overflow: hidden; border: 0px; margin: 0px; inset: 0px; height: 100%; width: 100%; position: absolute; pointer-events: none; z-index: -1;"></iframe>
-                        <canvas height="50%;" width="100%;" id="totalInventoryCostChart" ></canvas>
-                        </div>
-                        </div>
-                                <!-- <div class="card-footer">
-                                            <ul>
-                                            <li>
-                                            <div class="text-muted">Visits</div>
-                                            <strong>29.703 Users (40%)</strong>
-                                            <div class="progress progress-xs mt-2" style="height: 5px;">
-                                            <div class="progress-bar bg-success" role="progressbar" style="width: 40%;" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                            </li>
-                                            <li class="hidden-sm-down">
-                                            <div class="text-muted">Unique</div>
-                                            <strong>24.093 Users (20%)</strong>
-                                            <div class="progress progress-xs mt-2" style="height: 5px;">
-                                            <div class="progress-bar bg-info" role="progressbar" style="width: 20%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                            </li>
-                                            <li>
-                                            <div class="text-muted">Pageviews</div>
-                                            <strong>78.706 Views (60%)</strong>
-                                            <div class="progress progress-xs mt-2" style="height: 5px;">
-                                            <div class="progress-bar bg-warning" role="progressbar" style="width: 60%;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                            </li>
-                                            <li class="hidden-sm-down">
-                                            <div class="text-muted">New Users</div>
-                                            <strong>22.123 Users (80%)</strong>
-                                            <div class="progress progress-xs mt-2" style="height: 5px;">
-                                            <div class="progress-bar bg-danger" role="progressbar" style="width: 80%;" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                            </li>
-                                            <li class="hidden-sm-down">
-                                            <div class="text-muted">Bounce Rate</div>
-                                            <strong>40.15%</strong>
-                                            <div class="progress progress-xs mt-2" style="height: 5px;">
-                                            <div class="progress-bar" role="progressbar" style="width: 40%;" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                            </li>
-                                            </ul>
-                               </div> --> 
-                       
+
+                        
                     </div>
-
-                     </div>
-
-                    <br>
-                        <br>
-
+                    <br/>
+                    <br/>
                        <?php
                         		// foreach ($data['viewclassification'] as $value) {
                         		// 	# code...
@@ -218,36 +231,34 @@ DASHBOARD
         $("#dashboardFilters").modal("toggle");
      });
     });
-   
-     //bar chart
-     var ctx = document.getElementById( "totalInventoryCostChart" );
+
+     //pie chart
+     var ctx = document.getElementById( "totalInventoryCostChart");
      var year = $('#year').val(); 
      var month = $('#month').val();
       var myChart = new Chart( ctx, {
-        type: 'bar',
+        type: 'pie',
         data: {
-            labels: [ "" ],
+            labels: [ "PPE", "ICS" ],
             datasets: [
                 {
                     label: "PPE",
                     data: [ 
                         {{getPPETotalCostJanuary()}}, 
-                      
-                    ],
-                    borderColor: "rgba(0, 123, 255, 0.9)",
-                    borderWidth: "0",
-                    backgroundColor: "rgba(44, 130, 201, 1)"
-                },
-                {   
-                    label: "ICS",
-                    data: [
                         {{getICSTotalCostJanuary()}}, 
                     ],
-                    borderColor: "rgba(0,0,0,0.09)",
+                    borderColor: [
+                    '#1e88c3',
+                    '#32ae44'
+                    ],
                     borderWidth: "0",
-                    backgroundColor: "rgba(101,198,187,1)"
-                }
-                        ]
+                    backgroundColor: [
+                    '#1e88c3',
+                    '#32ae44'
+                    ],
+                },
+               
+            ]
         },
         options: {
             scales: {
@@ -260,6 +271,278 @@ DASHBOARD
         }
     } );
 
+    
+     //pie chart
+     var ctx = document.getElementById( "numberofItemsRDARMSS");
+     var year = $('#year').val(); 
+     var month = $('#month').val();
+      var myChart = new Chart( ctx, {
+        type: 'pie',
+        data: {
+            labels: [ "OED-RD", "OED-ARMSS" ],
+            datasets: [
+                {
+                    label: "PPE",
+                    data: [ 
+                        {{clusterTotalNumberofItemsARMSS()}}, 
+                        {{clusterTotalNumberofItemsRD()}}, 
+                    ],
+                    borderColor: [
+                    '#32ae44',
+                    '#1e88c3',
+                    
+                    ],
+                    borderWidth: "0",
+                    backgroundColor: [
+                    '#32ae44',
+                    '#1e88c3',
+                   
+                    ],
+                },
+               
+            ]
+        },
+        options: {
+            scales: {
+                yAxes: [ {
+                    ticks: {
+                        beginAtZero: true
+                    }
+                                } ]
+            }
+        }
+    } );
+  //bar chart
+  var ctx = document.getElementById("numberOfItemsPerDivisionARMSS");
+     var year = $('#year').val(); 
+     var month = $('#month').val();
+      var myChart = new Chart( ctx, {
+        type: 'bar',
+        data: {
+            labels: [ "" ],
+            datasets: [
+                {
+                    label: "ACD",
+                    data: [ 
+                        {{getItemsCount("ACD")}}, 
+                      
+                    ],
+                    borderColor: "rgb(0, 102, 153)",
+                    borderWidth: "0",
+                    backgroundColor: "rgb(0, 102, 153)"
+                },
+                {
+                    label: "COA",
+                    data: [ 
+                        {{getItemsCount("COA")}}, 
+                      
+                    ],
+                    borderColor: "rgb(0, 153, 115)",
+                    borderWidth: "0",
+                    backgroundColor: "rgb(0, 153, 115)"
+                },
+                {   
+                    label: "FAD-Accounting",
+                    data: [
+                        {{getItemsCount("FAD-Accounting")}}, 
+                    ],
+                    borderColor: "rgb(77, 153, 0)",
+                    borderWidth: "0",
+                    backgroundColor: "rgb(77, 153, 0)"
+                },
+                {   
+                    label: "FAD-Budget",
+                    data: [
+                        {{getItemsCount("FAD-Budget")}}, 
+                    ],
+                    borderColor: "rgb(0, 153, 77)",
+                    borderWidth: "0",
+                    backgroundColor: "rgb(0, 153, 77)"
+                },
+                {   
+                    label: "FAD-GSS",
+                    data: [
+                        {{getItemsCount("FAD-GSS")}}, 
+                    ],
+                    borderColor: "rgb(77, 178, 116)",
+                    borderWidth: "0",
+                    backgroundColor: "rgb(77, 178, 116)"
+                },
+                {   
+                    label: "FAD-Personnel",
+                    data: [
+                        {{getItemsCount("FAD-Personnel")}}, 
+                    ],
+                    borderColor: "rgb(0, 115, 153)",
+                    borderWidth: "0",
+                    backgroundColor: "rgb(0, 115, 153)"
+                },
+                {   
+                    label: "FAD-Property",
+                    data: [
+                        {{getItemsCount("FAD-Property")}}, 
+                    ],
+                    borderColor: "rgb(100, 163, 245)",
+                    borderWidth: "0",
+                    backgroundColor: "rgb(100, 163, 245)"
+                },
+                {   
+                    label: "IDD",
+                    data: [
+                        {{getItemsCount("IDD")}}, 
+                    ],
+                    borderColor: "rgb(120, 98, 209)",
+                    borderWidth: "0",
+                    backgroundColor: "rgb(120, 98, 209)"
+                },
+                {   
+                    label: "MISD",
+                    data: [
+                        {{getItemsCount("MISD")}}, 
+                    ],
+                    borderColor: "rgb(253, 126, 137)",
+                    borderWidth: "0",
+                    backgroundColor: "rgb(253, 126, 137)"
+                },
+                {   
+                    label: "OED-ARMSS",
+                    data: [
+                        {{getItemsCount("OED-ARMSS")}}, 
+                    ],
+                    borderColor: "rgb(156, 224, 139)",
+                    borderWidth: "0",
+                    backgroundColor: "rgb(156, 224, 139)"
+                },
+                {   
+                    label: "PCMD",
+                    data: [
+                        {{getItemsCount("PCMD")}}, 
+                    ],
+                    borderColor: "rgba(0,0,0,0.09)",
+                    borderWidth: "0",
+                    backgroundColor: "rgba(101,198,187,1)"
+                }
+         ]
+        },
+        options: {
+            scales: {
+                yAxes: [ {
+                    ticks: {
+                        beginAtZero: true
+                    }
+                                } ]
+            }
+        }
+    } );
+
+
+    
+  //bar chart
+  var ctx = document.getElementById("numberOfItemsPerDivisionRD");
+     var year = $('#year').val(); 
+     var month = $('#month').val();
+      var myChart = new Chart( ctx, {
+        type: 'bar',
+        data: {
+            labels: [ "" ],
+            datasets: [
+                {
+                    label: "ARMRD",
+                    data: [ 
+                        {{getItemsCount("ARMRD")}}, 
+                      
+                    ],
+                    borderColor: "rgb(0, 102, 153)",
+                    borderWidth: "0",
+                    backgroundColor: "rgb(0, 102, 153)"
+                },
+                {
+                    label: "CRD",
+                    data: [ 
+                        {{getItemsCount("CRD")}}, 
+                      
+                    ],
+                    borderColor: "rgb(0, 153, 115)",
+                    borderWidth: "0",
+                    backgroundColor: "rgb(0, 153, 115)"
+                },
+                {   
+                    label: "FERD",
+                    data: [
+                        {{getItemsCount("FERD")}}, 
+                    ],
+                    borderColor: "rgb(77, 153, 0)",
+                    borderWidth: "0",
+                    backgroundColor: "rgb(77, 153, 0)"
+                },
+                {   
+                    label: "IARRD",
+                    data: [
+                        {{getItemsCount("IARRD")}}, 
+                    ],
+                    borderColor: "rgb(0, 153, 77)",
+                    borderWidth: "0",
+                    backgroundColor: "rgb(0, 153, 77)"
+                },
+                {   
+                    label: "LRD",
+                    data: [
+                        {{getItemsCount("LRD")}}, 
+                    ],
+                    borderColor: "rgb(77, 178, 116)",
+                    borderWidth: "0",
+                    backgroundColor: "rgb(77, 178, 116)"
+                },
+                {   
+                    label: "MRRD",
+                    data: [
+                        {{getItemsCount("MRRD")}}, 
+                    ],
+                    borderColor: "rgb(0, 115, 153)",
+                    borderWidth: "0",
+                    backgroundColor: "rgb(0, 115, 153)"
+                },
+                {   
+                    label: "OED-R&D",
+                    data: [
+                        {{getItemsCount("OED-R&D")}}, 
+                    ],
+                    borderColor: "rgb(156, 224, 139)",
+                    borderWidth: "0",
+                    backgroundColor: "rgb(156, 224, 139)"
+                },
+                {   
+                    label: "SERD",
+                    data: [
+                        {{getItemsCount("SERD")}}, 
+                    ],
+                    borderColor: "rgb(100, 163, 245)",
+                    borderWidth: "0",
+                    backgroundColor: "rgb(100, 163, 245)"
+                },
+                {   
+                    label: "TTPD",
+                    data: [
+                        {{getItemsCount("TTPD")}}, 
+                    ],
+                    borderColor: "rgb(120, 98, 209)",
+                    borderWidth: "0",
+                    backgroundColor: "rgb(120, 98, 209)"
+                }
+         ]
+        },
+        options: {
+            scales: {
+                yAxes: [ {
+                    ticks: {
+                        beginAtZero: true
+                    }
+                                } ]
+            }
+        }
+    } );
+
+  
 
     </script>
 @endsection
