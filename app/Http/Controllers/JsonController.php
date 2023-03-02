@@ -325,18 +325,22 @@ class JsonController extends Controller
 
               case 'componentsmain':
                 $user = Auth::user();
-                $empcode = $user->username;
-                $user_type = 'Admin';
+                $employee_code = $user->username;
+                $user_type = $user->account_type;
                 # code...
                 if($user_type =='Admin')
                 {
                     $table = new App\Equipment_Components;
-                    $tb = $table->whereNull('deleted_at')->orderBy('id');
+                    $tb = $table
+                    ->whereNull('deleted_at')
+                    ->orderBy('id');
                 }
                 else
                 { 
                     $table = new App\Equipment_Components;
-                    $tb = $table->whereNull('deleted_at')->where('employee_code', $empcode)->orderBy('id');
+                    $tb = $table->whereNull('deleted_at')
+                    ->where('issued_to', $employee_code)
+                    ->orderBy('id');
                 }
                 
                 $totalCount = (clone $tb)->count();
@@ -378,7 +382,7 @@ class JsonController extends Controller
 
             case 'icsall':
                 $user = Auth::user();
-                $empcode = $user->username;
+                $employee_code = $user->username;
                 $user_type = $user->account_type;
                 # code...
                 if($user_type =='Admin')
@@ -389,8 +393,9 @@ class JsonController extends Controller
                 else
                 { 
                     $table = new ICS_Components;
-                    $tb = $table->whereNull('deleted_at')->where('employee_code', $empcode)->orderBy('id');
-                    $tb = $table->whereNull('deleted_at')->orderBy('id');
+                    $tb = $table->whereNull('deleted_at')
+                    ->where('issued_to', $employee_code)
+                    ->orderBy('id');
                 }
 
 

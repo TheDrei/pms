@@ -92,6 +92,8 @@ color:white!important;
         <nav class="navbar navbar-expand-sm navbar-default">
 
             <input name="auth" id="auth" type="hidden" value="{{ Auth::user()->username }}">
+            <input name="usert_type" id="user_type" type="hidden" value="{{ Auth::user()->usertype }}">
+            <input name="user_id" id="user_id" type="hidden" value="{{ Auth::user()->id }}">
 
             <div class="navbar-header">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
@@ -129,7 +131,7 @@ color:white!important;
                             <img class="user-avatar rounded-circle" src="{{ asset('sufee-admin-dashboard-master/images/admin.jpg') }}" alt="User Avatar">
                         </a>
 
-                           <div style="color:#0077bb; font-weight: bold; width:250px; font-size:16px; padding-top:7px; padding-left:100px;">{{ Auth::user()->lname }}, {{ Auth::user()->fname }}</div> 
+                        <div style="color:#0077bb; font-weight: bold; width:250px; font-size:16px; padding-top:7px; padding-left:100px;">{{ Auth::user()->lname }}, {{ Auth::user()->fname }}</div> 
                                    
                         <div class="user-menu dropdown-menu">
 

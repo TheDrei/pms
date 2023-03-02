@@ -15,7 +15,6 @@ use App\Http\Controllers\ICS\ICSController;
 Route::get('/', 'PageController@index');
 Route::get('logout', 'LoginController@logout');
 
-
 //DELETE FROM LIBRARY 
 Route::get('/deletecat/{name}','LibraryController@delete');
 
@@ -121,10 +120,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('json/equipment/{id}', 'JsonController@requestequipment_details');
 Route::get('get/components/{id}', 'JsonController@requestcomponent_details');
 Route::get('get/view_history_ppe/{set_id}', 'JsonController@view_history_ppe');
-
 Route::get('get/parcomponents-components/{set_id}', 'JsonController@requestparcomponent_details');
 Route::get('get/parcomponents-components-id/{id}', 'JsonController@viewrequestparcomponent_items_details_id');
-
 Route::get('get/get_items2/{empcode}', 'JsonController@json_paritems');
 Route::get('get/get_itemspardivision/{division}', 'JsonController@json_pardivisionitems');
 Route::get('get/get_itemsparnumber/{par_number}', 'JsonController@json_parnumberitems');
@@ -134,7 +131,6 @@ Route::get('get/division/{division_acro}', 'JsonController@requestdivision');
 Route::get('get/position/{employee_code}', 'JsonController@requestposition');
 Route::get('pdf/par/{id}', 'GeneratePARController@par');
 Route::get('ppe/delete/{id}','EquipmentController@deleteppe');
-
 Route::get('pdf/semiexpendablecard/{id}', 'GenerateSemiExpendableCardController@semiexpendablecard');
 Route::get('pdf/propcard/{id}', 'GeneratePropertyCardController@propertycard');
 Route::get('pdf/rpcppe/{year}/{ppe_type}', 'GenerateRPCPPEController@rpcppe');

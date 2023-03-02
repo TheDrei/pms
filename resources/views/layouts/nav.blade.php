@@ -1,9 +1,76 @@
-@if (Auth::usertype() == "Staff")
+@if (Auth::user()->account_type == "Staff")
+<div id="main-menu" class="main-menu collapse navbar-collapse" style="background-color:#003763;">
+                <ul class="nav navbar-nav">
+                    <li class="">
+                        <a href="{{ url('dashboard/all') }}"> <i class="menu-icon fa fa-dashboard"></i>Dashboard</a>
+                    </li>
 
+                   
+                    <li class="" >
+                        <a href=""><i class="customhide menu-icon ti ti-package"></i>Inventory<i style='float:right; padding-top:7px;' class="fa fa-chevron-circle-down"></i></a>
+                    </li>
+                    <div uk-dropdown="mode: click" style='color:black; background-color:#003763;' class="customhide" >
+                        <ul class="uk-nav uk-dropdown-nav">
+                        <li class="uk-active"><a href="{{ url('equipment/all') }}">Plant Property and Equipment</a></li>
+                        <li><a href="{{ url('ics/all') }}">Semi-Expendable Supply</a></li>
+                        </ul>
+                   </div>
 
-@endif
-            
-            <div id="main-menu" class="main-menu collapse navbar-collapse" style="background-color:#003763;">
+                      
+                   <li class="" >
+                        <a href=""><i class="customhide menu-icon ti ti-shopping-cart"></i>Procurement<i style='float:right; padding-top:7px;' class="fa fa-chevron-circle-down"></i></a>
+                    </li>
+                    <div uk-dropdown="mode: click" style='color:black; background-color:#003763;' class="customhide" >
+                        <ul class="uk-nav uk-dropdown-nav">
+                        <li class="uk-active"><a href="{{ url('annual-procurement-plan') }}">Annual Procurement Plan (APP)</a></li>
+                        <li class="uk-active"><a href="{{ url('divisional-procurement-plan') }}">  Divisional Procurement Management Plan (DPPMP)</a></li>
+                        </ul>
+                   </div>
+                 
+                    
+                   <li class="" >
+                        <a href=""><i class="customhide menu-icon ti ti-trash"></i>Disposal<i style='float:right; padding-top:7px;' class="fa fa-chevron-circle-down"></i></a>
+                    </li>
+                    <div uk-dropdown="mode: click" style='color:black; background-color:#003763;' class="customhide" >
+                        <ul class="uk-nav uk-dropdown-nav">
+                        <li class="uk-active"><a href="#">Disposed PPE</a></li>
+                        <li class="uk-active"><a href="#">Disposed Semi-Expendable Supplies</a></li>
+                       
+                        </ul>
+                   </div>
+
+                        <div uk-dropdown="mode: click" style='color:black; background-color:#003763;' >
+                        <ul class="uk-nav uk-dropdown-nav">
+                        </ul>
+                    </div>
+
+                  
+                   <li class="">
+                        <a href="{{ url('change-password/all') }}"> <i class="menu-icon fa fa-gear"></i>Change Password</a>
+                   </li>
+
+                   <li class="">
+                      <a href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
+                        document.getElementById('logout-form').submit();"><i class="menu-icon fa fa-power-off"></i>Logout</a>
+                   </li>
+
+                   
+                    <h3 class="menu-title">Documents</h3>
+                    <ul uk-nav>
+                    <li class="">
+                        <a href="{{ url('documents') }}"> <i class="menu-icon fa fa-book"></i>Documents</a>
+                    </li>
+                    </ul>
+                    
+                    <div class="uk-width-1-2@s">
+                    </div>
+                    
+                </ul>
+            </div><!-- /.navbar-collapse -->
+
+@else
+<div id="main-menu" class="main-menu collapse navbar-collapse" style="background-color:#003763;">
                 <ul class="nav navbar-nav">
                     <li class="">
                         <a href="{{ url('dashboard/all') }}"> <i class="menu-icon fa fa-dashboard"></i>Dashboard</a>
@@ -150,6 +217,8 @@
                 </ul>
             </div><!-- /.navbar-collapse -->
 
+@endif
+            
             <script>
             function hidePPEicon()
             {
