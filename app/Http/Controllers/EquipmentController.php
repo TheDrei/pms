@@ -438,17 +438,17 @@ class EquipmentController extends Controller
          DB::table('equipment_sets_components')
         ->where('id', $id)
         ->update([
-           'status' => "Disposed",
+           'status' => "For Disposal",
            'remarks' => $request->dispose_remarks,
-           'status_html' => "<div class='badge-danger' style='color: white; font-weight:bold; text-align:center; border-radius:10px; height:30px;'><small style='font-weight:bold;'>Disposed</small></div>"
+           'status_html' => "<div class='badge-warning' style='color: white; font-weight:bold; text-align:center; border-radius:10px; height:30px; width:100px;'><small style='font-weight:bold;'>For Disposal</small></div>"
          ]);
 
          DB::table('equipment_components')
          ->where('id', $id)
          ->update([
-            'status' => "Disposed",
+            'status' => "For Disposal",
             'remarks' => $request->dispose_remarks,
-            'status_html' => "<div class='badge-danger' style='color: white; font-weight:bold; text-align:center; border-radius:10px; height:30px;'><small style='font-weight:bold;'>Disposed</small></div>"
+            'status_html' => "<div class='badge-warning' style='color: white; font-weight:bold; text-align:center; border-radius:10px; height:30px; width:100px;'><small style='font-weight:bold;'>For Disposal</small></div>"
           ]);
 
          $historylogSet = [];

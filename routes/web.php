@@ -181,3 +181,7 @@ Route::get('documents', function () {
 // Property Number Automation
 Route::get('/ics-get-previous-id', 'ICS\ICSController@getPreviousId')->name('ics-getprevious-id');
 Route::get('/ppe-get-previous-id', 'PPE\PPEController@getPreviousId')->name('ppe-getprevious-id');
+
+
+// Disposal Module
+Route::get('/ppe-disposal', 'PPE\PPEController@for_disposal_ppe')->name('ppe-disposal');

@@ -13,6 +13,11 @@ class PPEController
       $previousId = DB::table('equipment_sets_components')->max('id');
       return response()->json(['previous_id' => $previousId]);
     }
+
+    public function for_disposal_ppe()
+    {
+        return view('disposal.equipment-for-disposal');
+    }
  }
 
 
