@@ -18,6 +18,10 @@ class PPEController
     {
         return view('disposal.equipment-for-disposal');
     }
+    public function disposed_ppe()
+    {
+        return view('disposal.equipment-disposed');
+    }
  }
 
 

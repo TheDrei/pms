@@ -35,29 +35,29 @@
 
 
 @section('content-title')
-Divisional Project Procurement Management Plan
+INVENTORY - Semi-Expendable Supplies/For Disposal
 @endsection
 @section('content')
 
- <!-- START ADD NEW DPPMP MODAL  -->
+ <!-- START ADD NEW EQUIPMENT MODAL  -->
 <div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
-      <div class="modal-dialog modal-sm" role="document" style="width:1000px; padding-right:1100px; padding-left: 600px;">
-          <div class="modal-content" style="width:600px;">
+      <div class="modal-dialog modal-md" role="document" style="width:1500px; padding-right:1100px; padding-left: 300px;">
+          <div class="modal-content custom" style="width:900px;">
             <div class="modal-header">
-              <h5 class="modal-title" id="dppmpModal">Divisional Project Management Procurement Plan</h5>
+              <h5 class="modal-title" id="largeModal">Add New Semi-Expendable Supply</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
-              <form id="saveICS" method="POST" action="{{ url('save/dppmp') }}">
+              <form id="saveICS" method="POST" action="{{ url('save-ics2') }}">
                 @csrf
                 <div class="card">
                   <div class="card-body">
-                      @include('form-view/dppmp-view')
+                      @include('form-view/ics-view')
                         <div class="modal-footer" style="width:100%;  position: sticky;">
                           <button style="border-radius:4px;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                          <button type="submit" onclick="generateDPPMP()" style="border-radius:4px;" type="button" class="btn btn-primary">Generate</button>
+                          <button style="border-radius:4px;" type="submit" class="btn btn-primary">Confirm</button>
                         </div>
                    </div>
                  </div>
@@ -240,27 +240,101 @@ Divisional Project Procurement Management Plan
 </div>
 <!-- END VIEW HISTORY -->
 
+<!-- START DISPOSAL -->
+<div class="modal fade" id="disposeEquipment">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content" style="margin-top: 10px;">
+      <div class="modal-header">
+        <h5 class="modal-title">Dispose Equipment</h4>
+      </div>
 
+      <form id="disposeEquipmentForm" method="POST" action="{{ url('dispose-ics-confirm') }}" enctype="multipart/form-data">
+        @csrf
+        <input type="hidden" name="dispose_equipment_id" id="dispose_equipment_id" value="">
+        <input type="hidden" name="dispose_fullname" id="dispose_fullname" value="">
+        <input type="hidden" name="dispose_division" id="dispose_division" value="">
 
+        <div class="tab-content pl-3 pt-2" id="nav-tabContent" style="background-color: #FFF;padding: 1%;border:1px solid #DDD;border-top: 1px solid #FFF">
+          <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+            <div class="card">
+            <br />
+              <div class="row form-group" style="padding-left:10px;">
+                <div class="col col-md-2"><label for="text-input" class=" form-control-label">Remarks</label></div>
+                <div class="col-12 col-md-8">
+                  <textarea class="form-control" name='dispose_remarks' id="dispose_remarks" required></textarea>
+                </div>
+              </div>
+              <div class="row form-group">
+                <div class="hide-label">
+             
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+
+          </div>
+        </div>
+        <br>
+        <p align="right" style="padding-right:300px;">
+          <button style="border-radius:4px;" type="submit" name="btn-edit" id="btn-edit" class="btn btn-primary btn-md">Dispose</button>
+          <a style="border-radius:4px;" href="" data-dismiss="modal" class="btn btn-danger btn-md">Cancel</a>
+        </p>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- END DISPOSAL -->
+
+<!-- START LEDGER CARD MODAL -->
+<div class="modal fade" id="generateLedgerCard">
+  <div class="modal-dialog modal-md" role="document" style="width:1700px; padding-right:3500px; padding-left: 130px;">
+  <div class="modal-content custom" style="width:1700px; overflow-x:hidden;">
+      <div class="modal-header">
+        <h5 class="modal-title">Generate Ledger Card</h4>
+      </div>
+      <form id="saveICS" method="POST" action="{{ url('generate-ledgercard') }}">
+                @csrf
+                <div class="card" style="width:1700px;">
+                  <div class="card-body" style="width:1700px;">
+                     <input type="hidden" name="generate_ledgercard_id" id="generate_ledgercard_id" value="">
+                     <div id="ledgerCardPrint">
+                      @include('form-view/sp-ledger-card')
+                      </div>
+                      
+                        <div class="modal-footer" style="width:100%;  position: sticky;">
+                          <button style="border-radius:4px;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                          <button style="border-radius:4px;" type="button" onclick='saveLedgerCard();' class="btn btn-primary">Confirm</button>
+                          <button style="border-radius:4px;" type="button" onclick='printLedgerCard();' class="btn btn-success">Print</button>
+                        </div>
+                   </div>
+                 </div>
+              </form>
+    </div>
+  </div>
+</div>
+<!-- END MODAL -->
 
     <button id="equipmentButton" type="button" style="border-radius:4px; float:right;" class="btn btn-primary btn-md" data-toggle="modal" data-target="#filterModal"><i class="fa fa-filter"></i>&nbsp; Filter</button>
-    <p align="left"><button id="equipmentButton" type="button" style="border-radius:4px;" class="btn btn-primary btn-md" data-toggle="modal" data-target="#largeModal"><i class="fa fa-plus"></i>&nbsp; Generate Divisional Project Procurement Plan</button></p>
+
     <div class = "card-body">
-    <table id="dppmp-data-table" class="table table-striped table-hover" style="background-color: #FFF;width: 100%; ">
+    <table id="bootstrap-data-table" class="table table-striped table-hover" style="background-color: #FFF;width: 100%; ">
       <thead class="thead-light">
         <tr>
           <th style="width: 2%">#</th>
           <th style="width: 10%">DIVISION</th>
-          <th style="width: 30%">FUNDING</th>
-          <th>CHARGING</th>
-          <th>YEAR</th>
-          <th>FROM</th>
-          <th>TO</th>
-          <th>DATE GENERATED</th>
+          <th style="width: 30%">ITEM DESCRIPTION</th>
+          <th>ICS NO.</th>
+          <th>PROPERTY NO.</th>
+          <th>PURCHASED FROM</th>
+          <th>ISSUED TO</th>
+          <th>STATUS</th>
+          <th>DATE ACQUIRED</th>
           <th width="10%">ACTION</th>
         </tr>
       </thead>
       <tbody>
+        <!-- <tr id="toclear" style=""><td colspan="14"><center><i class="fa fa-spinner fa-spin" aria-hidden="true"></i></center></td></tr> -->
       </tbody>
     </table>
     </div>
@@ -309,7 +383,7 @@ Divisional Project Procurement Management Plan
 <script type="text/javascript">
 Swal.fire({
     title: "Success",
-    text: "Report Successfully Generated!",
+    text: "ICS Supply Successfully Saved!",
     type: "success"
 }).then(function() {
    
@@ -365,7 +439,7 @@ Swal.fire({
  
 Swal.fire({
     title: "Success",
-    text: "DPPMP Report Successfully Deleted!",
+    text: "ICS Supply Successfully Deleted!",
     type: "success"
 }).then(function() {
    
@@ -418,6 +492,31 @@ Swal.fire({
 
 
   $(document).ready(function() {
+  // PROPERTY NUMBER Add and Remove Script
+    //Add Property Number
+      var ctrPropNumber = 0;
+        $('#addPropertyNumber').click(function() {
+            ctrPropNumber += 1;
+            $(".property_numbers").append("<section> <div class='font-weight-bold'>Property No. <a href='#' class='btn btn-danger btn-sm' style='border-radius:100px' onclick='delPropertyNumber(this)'><i class='fa fa-close'></i></a></div><div style='width:300px;'><input class='property_number form-control' placeholder='Property No.' name='property_number_array[]' id='property_number_array_"+ctrPropNumber+"' required></div></section>");
+     });
+
+    //Delete Property Number
+       window.delPropertyNumber = function(id) {
+           $(id).closest("section").remove();
+           ctrPropNumber -= 1;
+        }
+      //Edit Add Property Number 
+        $('#editAddPropertyNumber').click(function() {
+            ctrPropNumber += 1;
+            $(".update_property_numbers").append("<section> <div class='font-weight-bold'>Property No. <a href='#' class='btn btn-danger btn-sm' style='border-radius:100px' onclick='delPropertyNumber(this)'><i class='fa fa-close'></i></a></div><div style='width:300px;'><input class='property_number form-control' placeholder='Property No.' name='update_property_number_array[]' id='update_property_number_array_"+ctrPropNumber+"' required></div></section>");
+        });
+
+         //Edit - Delete Property Number
+         window.editdelPropertyNumber = function(id) {
+           $(id).closest("section").remove();
+           ctrPropNumber -= 1;
+        }
+    // END PROPERTY NUMBER Add and Remove Script
 
     $( "#date_ics" ).change(function() {
       var date_ics = moment(this.value).format('LL');
@@ -539,14 +638,6 @@ Swal.fire({
         });
 
 
-    $('.dppmp-select').select2({
-      dropdownParent: "#dppmpModal",
-      theme: "classic",
-      closeOnSelect: true,
-      width: '100%',
-    });
-
-
     $('#filter_division').select2({
       theme: "classic", 
       dropdownParent: "#filterICS",
@@ -625,8 +716,7 @@ Swal.fire({
       width: '100%',
 
     });
-
-
+   
     //FILTER DIVISION ON ISSUED TO DROP-DOWN
     $("#select_division").on('change', function() {
       $("#select_staff").empty();
@@ -675,7 +765,26 @@ Swal.fire({
               
             });
         });
-  
+
+    $.getJSON("{{ route('supplies-getprevious-id') }}", function(datajson) {
+            $("#sp_categories").on('change',  function() {
+              var value = this.value;
+              var current_date = new Date();
+              var type = "SP"; 
+            
+              var current_month=('0'+(current_date.getMonth()+1)).slice(-2)
+              var current_year  = new Date().getFullYear();
+              var previous_id = datajson.previous_id+1;
+              $("#ics_number").val(type+value+'-'+current_year+'-'+current_month+'-'+previous_id);
+            });
+              var value="";
+              var current_date = new Date();
+              var type = "SP"; 
+              var current_month=('0'+(current_date.getMonth()+1)).slice(-2)
+              var current_year  = new Date().getFullYear();
+              var previous_id = datajson.previous_id+1;
+              $("#ics_number").val(type+value+'-'+current_year+'-'+current_month+'-'+previous_id);
+      });
   
     //FILL DROP-DOWN
     $.getJSON("{{ url('json/users/all') }}", function(datajson) {
@@ -689,29 +798,20 @@ Swal.fire({
     $.getJSON("{{ url('json/fund-cluster/all') }}", function(datajson) {
       jQuery.each(datajson, function(i, obj) {
         $("#fund_cluster").append("<option value='" + obj.fund_cluster + "'>" + obj.fund_cluster + "</option>");
-        $("#dppmp_funding").append("<option value='" + obj.fund_cluster + "'>" + obj.fund_cluster + "</option>");
+      });
+    });
+
+    $.getJSON("{{ url('json/fund-cluster/all') }}", function(datajson) {
+      jQuery.each(datajson, function(i, obj) {
         $("#update_fund_cluster").append("<option value='" + obj.fund_cluster + "'>" + obj.fund_cluster + "</option>");
+      });
+    });
+
+    $.getJSON("{{ url('json/fund-cluster/all') }}", function(datajson) {
+      jQuery.each(datajson, function(i, obj) {
         $("#itr_fund_cluster").append("<option value='" + obj.fund_cluster + "'>" + obj.fund_cluster + "</option>");
       });
     });
-
-    $.getJSON("{{ url('json/charging/all') }}", function(datajson) {
-      jQuery.each(datajson, function(i, obj) {
-        $("#dppmp_charging").append("<option value='" + obj.charging + "'>" + obj.charging + "</option>");
-      });
-    });
-
-    // $.getJSON("{{ url('json/fund-cluster/all') }}", function(datajson) {
-    //   jQuery.each(datajson, function(i, obj) {
-       
-    //   });
-    // });
-
-    // $.getJSON("{{ url('json/fund-cluster/all') }}", function(datajson) {
-    //   jQuery.each(datajson, function(i, obj) {
-       
-    //   });
-    // });
 
     $(".show_pcv_by_list").hide();
     $("#ics_type").on('change', function() {
@@ -768,7 +868,6 @@ Swal.fire({
         $("#select_division").append("<option value='" + obj.division_acro + "'>" + obj.division_acro + "</option>");
         $("#transfer_select_division").append("<option value='" + obj.division_acro + "'>" + obj.division_acro + "</option>");
         $("#filter_division").append("<option value='" + obj.division_acro + "'>" + obj.division_acro + "</option>");
-        $("#dppmp_division").append("<option value='" + obj.division_acro + "'>" + obj.division_acro + "</option>");
       });
     });
 
@@ -827,7 +926,7 @@ Swal.fire({
       //END CHECK
 
       //COMPONENT TEXT-INPUT NEWER
-      $("#property-table tr:last").after("<tr><td class='solid-borders'><input style='font-size:12px; width:200px;' type='text' class='form-control' name='inventory_item_number[]' value=''></td><td class='solid-borders'><select onchange='getCategory(this.value)' style='font-size:12px;' name='equip_subcat[]' id='equip_subcat_" + proctr + "' class='form-control prop_assign_ctr' required><option value='' disabled selected>Select a Sub-Category</option></select></td><td class='solid-borders'><input style='font-size:11px; width:200px;' type='text' class='form-control' name='equipment_category[]' id='equipment_category_" + proctr + "' required></td><td class='solid-borders'><textarea style='font-size:12px; width:200px;' type='text' class='form-control prop_component_ctr' name='prop_component[]' id='prop_component_" + proctr + "' required></textarea></td><td class='solid-borders'><input style='font-size:12px; width:50px;' type='number' class='form-control' value='1' name='component_quantity[]' id='component_quantity_" + proctr + "' required></td><td class='solid-borders'><input style='font-size:12px; width:50px;' type='text' class='form-control' name='equip_subprop_num[]' value='" + proctr + "'></td><td class='solid-borders'><input style='font-size:12px; width:200px;' type='text' class='form-control' name='equip_serial_num[]' id='equip_serial_num_" + proctr + "' value='' required></td><td class='solid-borders'><input style='font-size:12px; width:90px;' type='number' class='form-control' name='estimated_useful_life[]' id='estimated_useful_life_" + proctr + "' value='' required></td><td class='solid-borders'><input style='font-size:12px; width:200px;' type='number' step='any' class='form-control unit-cost' name='unit_cost[]' id='unit_cost_" + proctr + "' value='' required></td><td class='solid-borders'>" + del_btn + "</td></tr>");
+      $("#property-table tr:last").after("<tr><td class='solid-borders'><input style='font-size:12px; width:200px;' type='text' class='form-control' name='inventory_item_number[]' value=''></td><td class='solid-borders'><select onchange='getCategory(this.value)' style='font-size:12px;' name='equip_subcat[]' id='equip_subcat_" + proctr + "' class='form-control prop_assign_ctr' required><option value='' disabled selected>Select a Sub-Category</option></select></td><td class='solid-borders'><input style='font-size:11px; width:200px;' type='text' class='form-control' name='equipment_category[]' id='equipment_category_" + proctr + "' required></td><td class='solid-borders'><textarea style='font-size:12px; width:200px;' type='text' class='form-control prop_component_ctr' name='prop_component[]' id='prop_component_" + proctr + "' required></textarea></td><td class='solid-borders'><input style='font-size:12px; width:50px;' type='number' class='form-control' value='1' name='component_quantity[]' id='component_quantity_" + proctr + "' required></td><td class='solid-borders'><input style='font-size:12px; width:50px;' type='text' class='form-control' name='equip_subprop_num[]' value='" + proctr + "'></td><td class='solid-borders'><input style='font-size:12px; width:200px;' type='text' class='form-control' name='equip_serial_num[]' id='equip_serial_num_" + proctr + "' value='' required></td><td class='solid-borders'><input style='font-size:12px; width:90px;' type='number' class='form-control' name='estimated_useful_life[]' id='estimated_useful_life_" + proctr + "' value='' required></td><td class='solid-borders'><input style='font-size:12px; width:200px;' type='number' step='any' class='form-control unit-cost' name='unit_cost[]' id='unit_cost_" + proctr + "' value='' required></td><td class='solid-borders'><textarea style='font-size:12px; width:200px;' type='text' class='form-control prop_component_ctr' name='remarks[]' id='remarks_" + proctr + "' required></textarea></td><td class='solid-borders'>" + del_btn + "</td></tr>");
 
         $(".unit-cost").on("keydown keyup", function() {
             calculateSum();
@@ -958,7 +1057,7 @@ Swal.fire({
       //END CHECK
 
       //COMPONENT TEXT-INPUT NEWER
-      $("#edit-property-table tr:last").after("<tr><td class='solid-borders'><input style='font-size:12px; width:300px;' type='text' class='form-control' name='inventory_item_number[]' value=''></td><td class='solid-borders'><select onchange='getCategory(this.value)' style='font-size:12px;' name='equip_subcat[]' id='equip_subcat_" + proctr + "' class='form-control prop_assign_ctr' required><option value='' disabled selected>Select a Sub-Category</option></select></td><td class='solid-borders'><input style='font-size:11px; width:200px;' type='text' class='form-control' name='equipment_category[]' id='equipment_category_" + proctr + "' required></td><td class='solid-borders'><textarea style='font-size:12px; width:200px;' type='text' class='form-control prop_component_ctr' name='prop_component[]' id='prop_component_" + proctr + "' required></textarea></td><td class='solid-borders'><input style='font-size:12px; width:50px;' type='number' class='form-control' value='1' name='component_quantity[]' id='component_quantity_" + proctr + "' required></td><td class='solid-borders'><input style='font-size:12px; width:50px;' type='text' class='form-control' name='equip_subprop_num[]' value='" + proctr + "'></td><td class='solid-borders'><input style='font-size:12px; width:200px;' type='text' class='form-control' name='equip_serial_num[]' id='equip_serial_num_" + proctr + "' value='' required></td><td class='solid-borders'><input style='font-size:12px; width:90px;' type='number' class='form-control' name='estimated_useful_life[]' id='estimated_useful_life_" + proctr + "' value='' required></td><td class='solid-borders'><input style='font-size:12px; width:200px;' type='number' step='any' class='form-control unit-cost' name='unit_cost[]' id='unit_cost_" + proctr + "' value='' required></td><td class='solid-borders'>" + del_btn + "</td></tr>");
+      $("#edit-property-table tr:last").after("<tr><td class='solid-borders'><input style='font-size:12px; width:300px;' type='text' class='form-control' name='inventory_item_number[]' value=''></td><td class='solid-borders'><select onchange='getCategory(this.value)' style='font-size:12px;' name='equip_subcat[]' id='equip_subcat_" + proctr + "' class='form-control prop_assign_ctr' required><option value='' disabled selected>Select a Sub-Category</option></select></td><td class='solid-borders'><input style='font-size:11px; width:200px;' type='text' class='form-control' name='equipment_category[]' id='equipment_category_" + proctr + "' required></td><td class='solid-borders'><textarea style='font-size:12px; width:200px;' type='text' class='form-control prop_component_ctr' name='prop_component[]' id='prop_component_" + proctr + "' required></textarea></td><td class='solid-borders'><input style='font-size:12px; width:50px;' type='number' class='form-control' value='1' name='component_quantity[]' id='component_quantity_" + proctr + "' required></td><td class='solid-borders'><input style='font-size:12px; width:50px;' type='text' class='form-control' name='equip_subprop_num[]' value='" + proctr + "'></td><td class='solid-borders'><input style='font-size:12px; width:200px;' type='text' class='form-control' name='equip_serial_num[]' id='equip_serial_num_" + proctr + "' value='' required></td><td class='solid-borders'><input style='font-size:12px; width:90px;' type='number' class='form-control' name='estimated_useful_life[]' id='estimated_useful_life_" + proctr + "' value='' required></td><td class='solid-borders'><input style='font-size:12px; width:200px;' type='number' step='any' class='form-control unit-cost' name='unit_cost[]' id='unit_cost_" + proctr + "' value='' required></td><td class='solid-borders'><textarea style='font-size:12px; width:200px;' type='text' class='form-control prop_component_ctr' name='remarks[]' id='remarks_" + proctr + "' required></textarea></td><td class='solid-borders'>" + del_btn + "</td></tr>");
 
         $(".unit-cost").on("keydown keyup", function() {
             calculateSum();
@@ -1094,51 +1193,47 @@ Swal.fire({
       $("#nav-tabContent").append('<div class="tab-pane fade show" id="sub-item-1" role="tabpanel" aria-labelledby="nav-home-tab"><div class="card"><div class="card-body"><div class="row form-group"><div class="col col-md-2"><label for="text-input" class=" form-control-label">Property No.</label></div><div class="col-12 col-md-6"><input type="text" name="prop_num[]" id="prop_num_1" class="form-control propassignformctr" value="" required></div></div><div class="row form-group"><div class="col col-md-2"><label for="text-input" class=" form-control-label">Value</label></div><div class="col-12 col-md-6"><input type="text" name="prop_total_val[]" id="prop_total_val_1" class="form-control" value="" required></div></div><div class="row form-group"><div class="col-12 col-md-2 "><label for="text-input" class="form-control-label">Issued To</label></div><div class="col-12 col-md-6"><select name="propassign_form[]" id="select_staff" data-placeholder="Select a Staff" class="form-control propassign_ctr" required><option value="' + propassign_formvar + '" selected>' + propassign_formvar + '</option></select></div></div><div class="hide-label"><h7>Add Components <a href="#" class="btn btn-primary btn-sm" onclick="addComponents(1)" style="border-radius: 100px"><i class="fa fa-plus"></i></a></h7><br/><br/><table class="table table-condensed" id="tbl_components_1" width="100%" style="font-size: 12px"><thead class="thead-light"><th style="width:20%">Component Name</th><th style="width:50%">Serial No.</th><th style="width:2%">Date Issued</th><th style="width:100%">Issued To</th><th style="width:2%"></th></thead></table></div></div></div>');
     }
 
-    var t = $('#dppmp-data-table').DataTable({
+    var t = $('#bootstrap-data-table').DataTable({
       "stateSave": true,
       "processing": true,
       "serverSide": false,
       "paging": true,
       "ajax": {
         "type": "GET",
-        "url": "{{ url('json/dppmp-list/all') }}"
+        "url": "{{ url('json/icsall-for-disposal/all') }}"
       },
       "columns": [{
-          "data": "dppmp_division"
-        },
-        {
-          "data": "dppmp_funding"
-        },
-        {
-          "data": "dppmp_charging"
-        },
-        {
-          "data": "dppmp_year"
-        },
-        {
-            data: "months_from", render: function(data) {
-            var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-            if (data == null) { return '-'; }
-            return months[data - 1];
-            }
-        },
-        {
-            data: "months_to", render: function(data) {
-            var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-            if (data == null) { return '-'; }
-            return months[data - 1];
-            }
-        },
-        {
           "data": "id"
         },
         {
-          "data": "created_at"
+          "data": "division"
+        },
+        {
+          "data": "component_name"
+        },
+        {
+          "data": "ics_number"
+        },
+        {
+          "data": "property_number"
+        },
+       
+        {
+          "data": "remarks_from"
+        },
+        {
+          "data": "fullname"
+        },
+        {
+          "data": "status_html"
+        },
+        {
+          "data": "date_acquired"
         },
 
         {
           "data": null,
-          "defaultContent": "<div class='uk-inline'> <button style='border-radius:4px;' class='uk-button uk-button-primary' type='button'><i class='menu-icon fa fa-caret-down'></i> Action</button> <div uk-dropdown='mode: click'> <ul class='uk-nav uk-dropdown-nav'  style='height:30px; overflow-x: scroll; overflow-x:hidden;'> <li> <a href='#' class='row-delete-report'> <div style='font-size:18px; font-weight:normal;'><i class='menu-icon fa fa-trash'></i> Delete Report</div></a> </li></ul> </div></div>"
+          "defaultContent": "<div class='uk-inline'> <button style='border-radius:4px;' class='uk-button uk-button-primary' type='button'><i class='menu-icon fa fa-caret-down'></i> Action</button> <div uk-dropdown='mode: click'> <ul class='uk-nav uk-dropdown-nav'  style='height:200px; overflow-x: scroll; overflow-x:hidden;'> <li> <a href='#' class='row-edit-equipment'> <div style='font-size:18px; font-weight:normal;'><i class='menu-icon fa fa-edit'></i> Edit Supply</div></a> </li><li> <a href='#' class='row-accept-equipment'> <div style='font-size:18px; font-weight:normal;'><i class='menu-icon fa fa-check-square'></i> Accept Supply </div></a> </li><li> <a href='#' class='row-revert-equipment'> <div style='font-size:18px; font-weight:normal;'><i class='menu-icon fa fa-undo'></i> Revert Supply </div></a> </li><li> <a href='#' class='row-dispose-equipment'> <div style='font-size:18px; font-weight:normal;'><i class='menu-icon fa fa-trash'></i> Dispose Supply </div></a> </li><li> <a href='#' class='row-transfer-equipment'> <div style='font-size:18px; font-weight:normal;'><i class='menu-icon fa fa-exchange'></i> Transfer Supply </div></a></li><li><a href='#' class='row-view-history'><div style='font-size:18px; font-weight:normal;'><i class='menu-icon fa fa-book'></i> View History </div></a></li><li><a href='#' class='row-generate-semiexpendable-card'><div style='font-size:18px; font-weight:normal;'><i class='menu-icon fa fa-clipboard'></i> Generate Card </div></a></li><li><a href='#' class='row-generate-ics'><div style='font-size:18px; font-weight:normal;'><i class='menu-icon fa fa-clipboard'></i> Generate ICS </div></a></li><li><a href='#' class='row-transfer-report'><div style='font-size:18px; font-weight:normal;'><i class='menu-icon fa fa-clipboard'></i> Transfer Report </div></a></li><li><a href='#' class='row-ledger-card'><div style='font-size:18px; font-weight:normal;'><i class='menu-icon fa fa-clipboard'></i> Ledger Card </div></a></li><li><a href='#' class='row-delete-ics'><div style='font-size:18px; font-weight:normal;'><i class='menu-icon fa fa-times'></i> Delete ICS </div></a></li></ul> </div></div>"
         }
       ],
       "columnDefs": [{
@@ -1155,19 +1250,6 @@ Swal.fire({
       }
     });
 
-      // Add a createdCell callback to modify the month cells
-     $.fn.dataTable.defaults.createdCell = function (td, cellData, rowData, row, col) {
-    // Check if the cell is in the month column (assuming the month column is the second column)
-    if (col == 4) {
-      // Convert the numerical month value to a string month name
-      const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-      const monthName = monthNames[cellData - 1];
-
-      // Update the cell contents with the string month name
-      $(td).html(monthName);
-    }
-  };
-
     //COUNTER
     t.on('order.dt search.dt', function() {
       t.column(0, {
@@ -1181,43 +1263,45 @@ Swal.fire({
 
     // TODO
     //action button event listeners
-    $('#dppmp-data-table').on('click', '.row-delete-report', function(e) {
+    $('#bootstrap-data-table').on('click', '.row-edit-equipment', function(e) {
       let varID = getRowID(e.target);
-      deleteReport(varID);
+      
+
+      editEquipmentdetails(varID);
 
     });
 
-    $('#dppmp-data-table').on('click', '.row-accept-equipment', function(e) {
+    $('#bootstrap-data-table').on('click', '.row-accept-equipment', function(e) {
       let varID = getRowID(e.target);
       acceptEquipment(varID);
 
     });
 
-    $('#dppmp-data-table').on('click', '.row-revert-equipment', function(e) {
+    $('#bootstrap-data-table').on('click', '.row-revert-equipment', function(e) {
       let varID = getRowID(e.target);
       revertEquipment(varID);
 
     });
 
-    $('#dppmp-data-table').on('click', '.row-dispose-equipment', function(e) {
+    $('#bootstrap-data-table').on('click', '.row-dispose-equipment', function(e) {
       let varID = getRowID(e.target);
       disposeEquipment(varID);
 
     });
 
-    $('#dppmp-data-table').on('click', '.row-transfer-equipment', function(e) {
+    $('#bootstrap-data-table').on('click', '.row-transfer-equipment', function(e) {
       let varID = getRowID(e.target);
       transferEquipment(varID);
 
     });
 
-    $('#dppmp-data-table').on('click', '.row-transfer-report', function(e) {
+    $('#bootstrap-data-table').on('click', '.row-transfer-report', function(e) {
       let varID = getRowID(e.target);
       transferReport(varID);
 
     });
 
-    $('#dppmp-data-table').on('click', '.row-view-history', function(e) {    
+    $('#bootstrap-data-table').on('click', '.row-view-history', function(e) {    
       let varID = getRowID(e.target);
       $.getJSON("{{ url('get/icscomponents-components') }}/" + varID, function(datajson) {
         viewHistory(datajson[0].set_id);
@@ -1226,25 +1310,25 @@ Swal.fire({
         })
     });
 
-    $('#dppmp-data-table').on('click', '.row-generate-semiexpendable-card', function(e) {
+    $('#bootstrap-data-table').on('click', '.row-generate-semiexpendable-card', function(e) {
       let varID = getRowID(e.target);
       generateSemiExpendablePropertyCard(varID);
     });
 
 
-    $('#dppmp-data-table').on('click', '.row-generate-ics', function(e) {
+    $('#bootstrap-data-table').on('click', '.row-generate-ics', function(e) {
       let varID = getRowID(e.target);
       generateICS(varID);
 
     });
 
-    $('#dppmp-data-table').on('click', '.row-delete-ics', function(e) {
+    $('#bootstrap-data-table').on('click', '.row-delete-ics', function(e) {
       let varID = getRowID(e.target);
       deleteICS(varID);
 
     });
 
-    $('#dppmp-data-table').on('click', '.row-ledger-card', function(e) {
+    $('#bootstrap-data-table').on('click', '.row-ledger-card', function(e) {
       let varID = getRowID(e.target);
       generateLedgerCard(varID);
 
@@ -1252,7 +1336,7 @@ Swal.fire({
 
     //TODO
     //See more displays full PPE details
-    $('#dppmp-data-table').on('click', '.display-ppe-details', function(e) {
+    $('#bootstrap-data-table').on('click', '.display-ppe-details', function(e) {
       let varID = getRowID(e.target);
       $.getJSON("{{ url('json/viewppedetails') }}/" + varID, function(datajson) {
         console.log(datajson)
@@ -1291,6 +1375,7 @@ Swal.fire({
           $("#update_prop_class").val(obj.class_description);
           $("#update_subcategoryHidden").val(subcattext);
           $("#update_categoryHidden").val(obj.class_description);
+          $("#update_category_id").val(obj.id);
         });
 
       }).fail(function() {
@@ -1318,7 +1403,7 @@ Swal.fire({
         jQuery.each(datajson, function(i, obj) {
           var selectlength = ($(".selectlength").length);
           //COMPONENT TABLE 2
-          $("#edit-property-table tr:last").after("<tr><td class='solid-borders'><input style='font-size:12px; width:300px;' type='text' class='form-control' name='update_comp_property_number[]' value='" + obj.inventory_item_number + "'></td><td class='solid-borders'><select onchange='updategetClass(this.value)' style='font-size:12px; width: 500px;' name='update_comp_equip_subcat[]' id='update_comp_equip_subcat_" + i + "' class='form-control prop_assign_ctr'><option value='" + obj.component_subclass + "' selected>" + obj.component_subclass + "</option></select></td><td class='solid-borders'><input style='font-size:14px; width:200px;' type='text' class='form-control' name='update_comp_prop_class[]' id='update_comp_prop_class_" + i + "' value='" + obj.component_classification + "'></td><td class='solid-borders'><textarea style='font-size:12px; width:200px;' type='text' class='form-control prop_component_ctr' name='update_comp_prop_component[" + i + "]' id='update_comp_prop_component_" + i + "' value='" + obj.component_name + "'>" + obj.component_name + "</textarea></td><td class='solid-borders'><input style='font-size:12px; width:80px;' type='number' class='form-control' value='" + obj.quantity + "' name='update_component_quantity[]' id='update_component_quantity_" + i + "'></td><td class='solid-borders'><input style='font-size:12px; width:50px;' type='text' class='form-control' name='update_comp_subprop[]' id='update_comp_subprop_" + i + "' value='" + obj.component_subpropertynumber + "'></td><td class='solid-borders'><input style='font-size:12px;  width:200px;' type='text' class='form-control' name='equip_serial_num[]' id='equip_serial_num_" + i + "' value='" + obj.serial_num + "'></td><td class='solid-borders'><input style='font-size:12px; width:90px;' min='0' type='number' class='form-control' name='update_estimated_useful_life[]' id='update_estimated_useful_life_" + i + "' value='" + obj.lifespan + "'></td><td class='solid-borders'><input style='font-size:12px; width:200px;' type='number' step='any' class='form-control update-unit-cost' name='update_unit_cost[]' id='update_unit_cost_" + i + "' value='" + obj.unit_cost + "'></td><td class='solid-borders'  class='selectlength'><select style='width: 100%' name='update_component_issued_to[" + i + "]' id='update_component_issued_to_" + i + "' onchange='getDivision2(this.value)' data-placeholder='Select a Staff' class='form-control' value='" + obj.fullname + "'><option value='" + obj.issued_to + "' selected>" + obj.fullname + "</option></select></td><td class='solid-borders'><input type='hidden' name='update_comp_equip_subcat_get[]' id='update_comp_equip_subcat_get_" + i + "' value='" + obj.component_subclass + "'  class='item-details'><input type='hidden' name='update_comp_icsnumber[]' id='update_comp_icsnumber_" + i + "' value='" + obj.component_subclass + "'  class='item-details'><input type='hidden' name='update_comp_division[]' id='update_comp_division_" + i + "' value='" + obj.division + "'  class='update-employee-details'><input type='hidden' name='update_comp_employeecode[]' id='update_comp_employeecode_" + i + "' value='" + obj.employee_code + "'  class='update-employee-details'><input type='hidden' name='update_comp_position[]' id='update_comp_position_" + i + "' value='" + obj.position + "'  class='update-employee-details'><input type='hidden' name='trigger_set_id_change[]' id='trigger_set_id_change_" + i + "' value='" + obj.set_id + "'  class='update-employee-details'>");
+          $("#edit-property-table tr:last").after("<tr><td class='solid-borders'><input style='font-size:12px; width:300px;' type='text' class='form-control' name='update_comp_property_number[]' value='" + obj.inventory_item_number + "'></td><td class='solid-borders'><select onchange='updategetClass(this.value)' style='font-size:12px; width: 500px;' name='update_comp_equip_subcat[]' id='update_comp_equip_subcat_" + i + "' class='form-control prop_assign_ctr'><option value='" + obj.component_subclass + "' selected>" + obj.component_subclass + "</option></select></td><td class='solid-borders'><input style='font-size:14px; width:200px;' type='text' class='form-control' name='update_comp_prop_class[]' id='update_comp_prop_class_" + i + "' value='" + obj.classification + "'></td><td class='solid-borders'><textarea style='font-size:12px; width:200px;' type='text' class='form-control prop_component_ctr' name='update_comp_prop_component[" + i + "]' id='update_comp_prop_component_" + i + "' value='" + obj.component_name + "'>" + obj.component_name + "</textarea></td><td class='solid-borders'><input style='font-size:12px; width:80px;' type='number' class='form-control' value='" + obj.quantity + "' name='update_component_quantity[]' id='update_component_quantity_" + i + "'></td><td class='solid-borders'><input style='font-size:12px; width:50px;' type='text' class='form-control' name='update_comp_subprop[]' id='update_comp_subprop_" + i + "' value='" + obj.component_subpropertynumber + "'></td><td class='solid-borders'><input style='font-size:12px;  width:200px;' type='text' class='form-control' name='equip_serial_num[]' id='equip_serial_num_" + i + "' value='" + obj.serial_num + "'></td><td class='solid-borders'><input style='font-size:12px; width:90px;' min='0' type='number' class='form-control' name='update_estimated_useful_life[]' id='update_estimated_useful_life_" + i + "' value='" + obj.lifespan + "'></td><td class='solid-borders'><input style='font-size:12px; width:200px;' type='number' step='any' class='form-control update-unit-cost' name='update_unit_cost[]' id='update_unit_cost_" + i + "' value='" + obj.unit_cost + "'></td><td class='solid-borders'  class='selectlength'><select style='width: 100%' name='update_component_issued_to[" + i + "]' id='update_component_issued_to_" + i + "' onchange='getDivision2(this.value)' data-placeholder='Select a Staff' class='form-control' value='" + obj.fullname + "'><option value='" + obj.issued_to + "' selected>" + obj.fullname + "</option></select></td><td class='solid-borders'><textarea value='" + obj.remarks + "' style='font-size:12px; width:200px;' type='text' class='form-control prop_component_ctr' name='update_remarks[]' id='update_remarks_" + proctr + "' required>" + obj.remarks + "</textarea></td><td class='solid-borders'><input type='hidden' name='update_comp_equip_subcat_get[]' id='update_comp_equip_subcat_get_" + i + "' value='" + obj.component_subclass + "'  class='item-details'><input type='hidden' name='update_comp_icsnumber[]' id='update_comp_icsnumber_" + i + "' value='" + obj.component_subclass + "'  class='item-details'><input type='hidden' name='update_comp_division[]' id='update_comp_division_" + i + "' value='" + obj.division + "'  class='update-employee-details'><input type='hidden' name='update_comp_employeecode[]' id='update_comp_employeecode_" + i + "' value='" + obj.employee_code + "'  class='update-employee-details'><input type='hidden' name='update_comp_position[]' id='update_comp_position_" + i + "' value='" + obj.position + "'  class='update-employee-details'><input type='hidden' name='trigger_set_id_change[]' id='trigger_set_id_change_" + i + "' value='" + obj.set_id + "'  class='update-employee-details'>");
           updatecalculateSum();
           function updatecalculateSum() {
             var sum = 0;
@@ -1433,6 +1518,14 @@ Swal.fire({
         $("#update_set_id").val(obj.id);
         $("#update_prop_umeasure").val(obj.ics_umeasure).change();
         $("#update_property_number").val(obj.property_number);
+        
+        if((typeof(obj.property_number_1) != "undefined" && obj.property_number_1 !== null) && (typeof(obj.property_number_2) != "undefined" && obj.property_number_2 !==null)) {
+                    $(".update_property_numbers").append("<section><div class='font-weight-bold'>Property No. <a href='#' class='btn btn-danger btn-sm' style='border-radius:100px' onclick='editdelPropertyNumber(this)'><i class='fa fa-close'></i></a></div><input class='form-control' placeholder='Property No.' name='update_property_number_array[]' id='update_property_number_1' value='"+obj.property_number_1+"'></section><section><div class='font-weight-bold'>Property No. <a href='#' class='btn btn-danger btn-sm' style='border-radius:100px' onclick='editdelPropertyNumber(this)'><i class='fa fa-close'></i></a></div><input class='form-control' placeholder='Property No.' name='update_property_number_array[]' id='update_property_number_2' value='"+obj.property_number_2+"'></section>");
+                }
+                else if(typeof(obj.property_number_1) != "undefined" && obj.property_number_1 !== null ) {
+                    $(".update_property_numbers").append("<section><div class='font-weight-bold'>Property No. <a href='#' class='btn btn-danger btn-sm' style='border-radius:100px' onclick='editdelPropertyNumber(this)'><i class='fa fa-close'></i></a></div><input class='form-control' placeholder='Property No.' name='update_property_number_array[]' id='update_property_number_1' value='"+obj.property_number_1+"'></section>");
+       }
+
         $("#update_categoryHidden").val(obj.component_classification);
         $("#update_subcategoryHidden").val(obj.component_subclass);
         $("#update_category").text(obj.component_classification);
@@ -1577,7 +1670,7 @@ Swal.fire({
     })
   }
 
-  function deleteReport(id) {
+  function deleteICS(id) {
     Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -1588,7 +1681,7 @@ Swal.fire({
       confirmButtonText: 'Yes, delete the record.'
     }).then((result) => {
       if (result.value) {
-        window.location.href = "{{ url('delete/dppmp') }}/" + id;
+        window.location.href = "{{ url('ics/delete') }}/" + id;
       }
     })
   }
@@ -1622,7 +1715,7 @@ Swal.fire({
                   "data": "created_at",  render: function(d){
                    return moment(d).format('LLL')
                 }
-                },
+                 },
               ],
               "createdRow": function(row, data, dataIndex) {
                 $(row).attr('data-id', data.id)
@@ -1682,10 +1775,10 @@ Swal.fire({
 
   function filterICS() {
   var division = $('#filter_division').val();
-  var table = $('#dppmp-data-table').DataTable();
+  var table = $('#bootstrap-data-table').DataTable();
   table.destroy();
 
-  var table = $('#dppmp-data-table').DataTable({
+  var table = $('#bootstrap-data-table').DataTable({
       "processing": true,
       "serverSide": false,
       "paging": true,
@@ -1721,7 +1814,7 @@ Swal.fire({
 
         {
           "data": null,
-          "defaultContent": "<div class='uk-inline'> <button style='border-radius:4px;' class='uk-button uk-button-primary' type='button'><i class='menu-icon fa fa-caret-down'></i> Action</button> <div uk-dropdown='mode: click'> <ul class='uk-nav uk-dropdown-nav'  style='height:200px; overflow-x: scroll; overflow-x:hidden;'> <li> <a href='#' class='row-edit-equipment'> <div style='font-size:18px; font-weight:normal;'><i class='menu-icon fa fa-edit'></i> Edit Supply</div></a> </li><li> <a href='#' class='row-accept-equipment'> <div style='font-size:18px; font-weight:normal;'><i class='menu-icon fa fa-check-square'></i> Accept Supply </div></a> </li><li> <a href='#' class='row-revert-equipment'> <div style='font-size:18px; font-weight:normal;'><i class='menu-icon fa fa-undo'></i> Revert Supply </div></a> </li><li> <a href='#' class='row-dispose-equipment'> <div style='font-size:18px; font-weight:normal;'><i class='menu-icon fa fa-trash'></i> Delete Plan </div></a> </li><li> <a href='#' class='row-transfer-equipment'> <div style='font-size:18px; font-weight:normal;'><i class='menu-icon fa fa-exchange'></i> Transfer Supply </div></a></li><li><a href='#' class='row-view-history'><div style='font-size:18px; font-weight:normal;'><i class='menu-icon fa fa-book'></i> View History </div></a></li><li><a href='#' class='row-generate-semiexpendable-card'><div style='font-size:18px; font-weight:normal;'><i class='menu-icon fa fa-clipboard'></i> Generate Card </div></a></li><li><a href='#' class='row-generate-ics'><div style='font-size:18px; font-weight:normal;'><i class='menu-icon fa fa-clipboard'></i> Generate ICS </div></a></li><li><a href='#' class='row-delete-ics'><div style='font-size:18px; font-weight:normal;'><i class='menu-icon fa fa-times'></i> Delete ICS </div></a></li></ul> </div></div>"
+          "defaultContent": "<div class='uk-inline'> <button style='border-radius:4px;' class='uk-button uk-button-primary' type='button'><i class='menu-icon fa fa-caret-down'></i> Action</button> <div uk-dropdown='mode: click'> <ul class='uk-nav uk-dropdown-nav'  style='height:200px; overflow-x: scroll; overflow-x:hidden;'> <li> <a href='#' class='row-edit-equipment'> <div style='font-size:18px; font-weight:normal;'><i class='menu-icon fa fa-edit'></i> Edit Supply</div></a> </li><li> <a href='#' class='row-accept-equipment'> <div style='font-size:18px; font-weight:normal;'><i class='menu-icon fa fa-check-square'></i> Accept Supply </div></a> </li><li> <a href='#' class='row-revert-equipment'> <div style='font-size:18px; font-weight:normal;'><i class='menu-icon fa fa-undo'></i> Revert Supply </div></a> </li><li> <a href='#' class='row-dispose-equipment'> <div style='font-size:18px; font-weight:normal;'><i class='menu-icon fa fa-trash'></i> Dispose Supply </div></a> </li><li> <a href='#' class='row-transfer-equipment'> <div style='font-size:18px; font-weight:normal;'><i class='menu-icon fa fa-exchange'></i> Transfer Supply </div></a></li><li><a href='#' class='row-view-history'><div style='font-size:18px; font-weight:normal;'><i class='menu-icon fa fa-book'></i> View History </div></a></li><li><a href='#' class='row-generate-semiexpendable-card'><div style='font-size:18px; font-weight:normal;'><i class='menu-icon fa fa-clipboard'></i> Generate Card </div></a></li><li><a href='#' class='row-generate-ics'><div style='font-size:18px; font-weight:normal;'><i class='menu-icon fa fa-clipboard'></i> Generate ICS </div></a></li><li><a href='#' class='row-delete-ics'><div style='font-size:18px; font-weight:normal;'><i class='menu-icon fa fa-times'></i> Delete ICS </div></a></li></ul> </div></div>"
         }
       ],
       "columnDefs": [{
@@ -1770,12 +1863,6 @@ Swal.fire({
   {
     var set_id = $("#generate_ledgercard_id").val();
     window.open("{{ url('pdf/ledgercard/') }}/" + set_id);
-  }
-
-  function generateDPPMP(){
-    var division  = $("#dppmp_division").val();  
-    var charging  = $("#dppmp_charging").val();  
-    window.open("{{ url('report/generateDPPMP') }}/" +division+"/"+charging);
   }
 
 

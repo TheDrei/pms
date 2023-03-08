@@ -206,7 +206,7 @@ INVENTORY - Property, Plant, and Equipment (PPE)/For Disposal
                 <h5 class="modal-title">
                     Dispose Equipment</h4>
             </div>
-            <form id="disposeEquipmentForm" method="POST" action="{{ url('dispose-equipment') }}" enctype="multipart/form-data">
+            <form id="disposeEquipmentForm" method="POST" action="{{ url('dispose-equipment-confirm') }}" enctype="multipart/form-data">
                 @csrf <input type="hidden" name="dispose_equipment_id" id="dispose_equipment_id" value="">
                 <input type="hidden" name="dispose_fullname" id="dispose_fullname" value="">
                 <input type="hidden" name="dispose_division" id="dispose_division" value="">
@@ -266,7 +266,7 @@ INVENTORY - Property, Plant, and Equipment (PPE)/For Disposal
 </div>
 <!-- END PPE DETAILS -->
 
-<p align="left"><button id="equipmentButton" type="button" style="border-radius: 4px" class="btn btn-primary btn-md" data-toggle="modal" data-target="#largeModal"><i class="fa fa-plus"></i>&nbsp; Add Equipment</button></p>
+
 
 <div class="card-body">
     <table id="bootstrap-data-table" class="table table-striped table-hover" style="background-color:#FFF;width: 100%;">
@@ -916,7 +916,7 @@ Swal.fire({
 				'_token': '{{ csrf_token() }}'
 			},
             "ajax": {
-                "url": "{{ url('json/componentsmain-disposed/all') }}",
+                "url": "{{ url('json/componentsmain-for-disposal/all') }}",
                 "method": "GET"
               },
             "columns": [

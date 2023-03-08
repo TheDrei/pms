@@ -432,7 +432,7 @@ class EquipmentController extends Controller
         $username = $user->username;
         $division = getDivision($user->division);
         $staffname = $request->dispose_fullname;
-        $action = "Successfully disposed PPE issued to {$staffname}";
+        $action = "Successfully tagged PPE issued to {$staffname} as for disposal";
 
 
          DB::table('equipment_sets_components')
@@ -465,6 +465,51 @@ class EquipmentController extends Controller
 
        return redirect()->back()->with('message-disposed', 'success-dispose');
     }
+
+
+    public function dispose_confirm(Request $request)
+    {  
+        $user = Auth::user();
+        $user_type = $user->account_type;
+
+        $id = $request->dispose_equipment_id;
+
+        $user = Auth::user();
+        $username = $user->username;
+        $division = getDivision($user->division);
+        $staffname = $request->dispose_fullname;
+        $action = "Successfully confirmed disposal of PPE issued to {$staffname}";
+
+
+         DB::table('equipment_sets_components')
+        ->where('id', $id)
+        ->update([
+           'status' => "Disposed",
+           'remarks' => $request->dispose_remarks,
+           'status_html' => "<div class='badge-danger' style='color: white; font-weight:bold; text-align:center; border-radius:10px; height:30px; width:100px;'><small style='font-weight:bold;'>Disposed</small></div>"
+         ]);
+
+         DB::table('equipment_components')
+         ->where('id', $id)
+         ->update([
+            'status' => "Disposed",
+            'remarks' => $request->dispose_remarks,
+            'status_html' => "<div class='badge-danger' style='color: white; font-weight:bold; text-align:center; border-radius:10px; height:30px; width:100px;'><small style='font-weight:bold;'>Disposed</small></div>"
+          ]);
+
+         $historylogSet = [];
+         $historylogSet[] = [
+         'set_id' => $id,
+         'equipment_type' => "PPE",
+         'action' => $action,
+         'staff' => $username,
+         'division' => $division 
+         ];
+      
+         DB::table('history_log_ppe')->insert($historylogSet);
+       return redirect()->back()->with('message-disposed', 'success-dispose');
+    }
+
 
     public function transfer(Request $request)
     {  
@@ -582,7 +627,45 @@ class EquipmentController extends Controller
         $division = getDivision($user->division);
         $staffname = $request->dispose_fullname;
         $to = $db->value('issued_to');
-        $action = "Successfully disposed supply issued to {$staffname}";
+        $action = "Successfully tagged supply issued to {$staffname} as for disposal.";
+
+         
+         DB::table('ics_components')
+        ->where('id', $id)
+        ->update([
+           'status' => "For Disposal",
+           'remarks' => $request->dispose_remarks,
+           'status_html' => "<div class='badge-warning' style='color: white; font-weight:bold; text-align:center; border-radius:10px; height:30px; width:100px;'><small style='font-weight:bold;'>For Disposal</small></div>"
+         ]);
+
+         $historylogSet = [];
+         $historylogSet[] = [
+         'set_id' => $id,
+         'equipment_type' => "ICS",
+         'action' => $action,
+         'staff' => $username,
+         'division' => $division 
+         ];
+      
+         DB::table('history_log')->insert($historylogSet);
+       
+
+       return redirect()->back()->with('message-disposed', 'dispose-success');
+    }
+
+    public function disposeics_confirm(Request $request)
+    {  
+        $user = Auth::user();
+        $user_type = $user->account_type;
+
+        $id = $request->dispose_equipment_id;
+
+        $db = DB::table('ics_components')->where('id', $id);
+        $username = $user->username;
+        $division = getDivision($user->division);
+        $staffname = $request->dispose_fullname;
+        $to = $db->value('issued_to');
+        $action = "Successfully confirmed disposal of supply issued to {$staffname}";
 
          
          DB::table('ics_components')
@@ -607,6 +690,7 @@ class EquipmentController extends Controller
 
        return redirect()->back()->with('message-disposed', 'dispose-success');
     }
+
 
 
 

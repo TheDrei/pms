@@ -332,6 +332,7 @@ class JsonController extends Controller
                 {
                     $table = new App\Equipment_Components;
                     $tb = $table
+                    ->where('status', '!=', 'For Disposal')
                     ->where('status', '!=', 'Disposed')
                     ->whereNull('deleted_at')
                     ->orderBy('id');
@@ -341,6 +342,8 @@ class JsonController extends Controller
                     $table = new App\Equipment_Components;
                     $tb = $table->whereNull('deleted_at')
                     ->where('issued_to', $employee_code)
+                    ->where('status', '!=', 'For Disposal')
+                    ->where('status', '!=', 'Disposed')
                     ->orderBy('id');
                 }
                 
@@ -380,7 +383,7 @@ class JsonController extends Controller
 
             break;
 
-            case 'componentsmain-disposed':
+            case 'componentsmain-for-disposal':
                 $user = Auth::user();
                 $employee_code = $user->username;
                 $user_type = $user->account_type;
@@ -398,6 +401,7 @@ class JsonController extends Controller
                     $table = new App\Equipment_Components;
                     $tb = $table->whereNull('deleted_at')
                     ->where('issued_to', $employee_code)
+                    ->where('status', '=', 'For Disposal')
                     ->orderBy('id');
                 }
                 
@@ -438,6 +442,64 @@ class JsonController extends Controller
             break;
 
 
+            case 'componentsmain-disposed':
+                $user = Auth::user();
+                $employee_code = $user->username;
+                $user_type = $user->account_type;
+                # code...
+                if($user_type =='Admin')
+                {
+                    $table = new App\Equipment_Components;
+                    $tb = $table
+                    ->where('status', '=', 'Disposed')
+                    ->whereNull('deleted_at')
+                    ->orderBy('id');
+                }
+                else
+                { 
+                    $table = new App\Equipment_Components;
+                    $tb = $table->whereNull('deleted_at')
+                    ->where('issued_to', $employee_code)
+                    ->where('status', '=', 'Disposed')
+                    ->orderBy('id');
+                }
+                
+                $totalCount = (clone $tb)->count();
+                $draw = $request->get('draw');
+                $start = (!$request->get('start')) ? 0 : $request->get('start');
+                $length = (!$request->get('length')) ? 99999999999999 : $request->get('length');
+                $data = $tb->select(
+                    'id',
+                    'par_number',
+                    'fullname',
+                    'remarks_charged',
+                    'remarks_from',
+                    'division',
+                    'property_number',
+                    'component_subpropertynumber',
+                    'component_name',
+                    'component_classification',
+                    'component_subclass',
+                    'quantity',
+                    'serial_num',
+                    'issued_to',
+                    'status_html',
+                    'date_acquired',
+                    'id as row_id' 
+                )
+                ->skip($start)
+                ->take($length)
+                ->get();
+                return response()->json([
+                    'success' => true,
+                    'draw' => $draw,
+                    'recordsTotal' => $totalCount,
+                    'recordsFiltered' => $totalCount,
+                    'data' => $data,
+                ], 200);
+
+            break;
+
 
             case 'icsall':
                 $user = Auth::user();
@@ -447,13 +509,18 @@ class JsonController extends Controller
                 if($user_type =='Admin')
                 {
                     $table = new ICS_Components;
-                    $tb = $table->whereNull('deleted_at')->orderBy('id');
+                    $tb = $table->whereNull('deleted_at')
+                    ->where('status', '!=', 'For Disposal')
+                    ->where('status', '!=', 'Disposed')
+                    ->orderBy('id');
                 }
                 else
                 { 
                     $table = new ICS_Components;
                     $tb = $table->whereNull('deleted_at')
                     ->where('issued_to', $employee_code)
+                    ->where('status', '!=', 'For Disposal')
+                    ->where('status', '!=', 'Disposed')
                     ->orderBy('id');
                 }
 
@@ -494,9 +561,127 @@ class JsonController extends Controller
                     'recordsFiltered' => $totalCount,
                     'data' => $data,
                 ], 200);
-
             break;
 
+            case 'icsall-for-disposal':
+                $user = Auth::user();
+                $employee_code = $user->username;
+                $user_type = $user->account_type;
+                # code...
+                if($user_type =='Admin')
+                {
+                    $table = new ICS_Components;
+                    $tb = $table->whereNull('deleted_at')
+                    ->where('status', '=', 'For Disposal')
+                    ->orderBy('id');
+                }
+                else
+                { 
+                    $table = new ICS_Components;
+                    $tb = $table->whereNull('deleted_at')
+                    ->where('issued_to', $employee_code)
+                    ->where('status', '=', 'For Disposal')
+                    ->orderBy('id');
+                }
+
+
+                $totalCount = (clone $tb)->count();
+                $draw = $request->get('draw');
+                $start = (!$request->get('start')) ? 0 : $request->get('start');
+                $length = (!$request->get('length')) ? 99999999999999 : $request->get('length');
+                 $data = $tb->select(
+                    'id',
+                    'division',
+                    'property_number',
+                    'fullname',
+                    'remarks_from',
+                    'remarks_charged',
+                    'ics_number',
+                    'component_subpropertynumber',
+                    'component_name',
+                    'lifespan',
+                    'component_classification',
+                    'component_subclass',
+                    'quantity',
+                    'serial_num',
+                    'issued_to',
+                    'status_html',
+                    'date_acquired',
+                    'id as row_id' 
+                )
+                ->skip($start)
+                ->take($length)
+                ->get();
+
+                return response()->json([
+                    'success' => true,
+                    'draw' => $draw,
+                    'recordsTotal' => $totalCount,
+                    'recordsFiltered' => $totalCount,
+                    'data' => $data,
+                ], 200);
+            break;
+
+            
+            case 'icsall-disposed':
+                $user = Auth::user();
+                $employee_code = $user->username;
+                $user_type = $user->account_type;
+                # code...
+                if($user_type =='Admin')
+                {
+                    $table = new ICS_Components;
+                    $tb = $table->whereNull('deleted_at')
+                    ->where('status', '=', 'Disposed')
+                    ->orderBy('id');
+                }
+                else
+                { 
+                    $table = new ICS_Components;
+                    $tb = $table->whereNull('deleted_at')
+                    ->where('issued_to', $employee_code)
+                    ->where('status', '=', 'Disposed')
+                    ->orderBy('id');
+                }
+
+
+                $totalCount = (clone $tb)->count();
+                $draw = $request->get('draw');
+                $start = (!$request->get('start')) ? 0 : $request->get('start');
+                $length = (!$request->get('length')) ? 99999999999999 : $request->get('length');
+                 $data = $tb->select(
+                    'id',
+                    'division',
+                    'property_number',
+                    'fullname',
+                    'remarks_from',
+                    'remarks_charged',
+                    'ics_number',
+                    'component_subpropertynumber',
+                    'component_name',
+                    'lifespan',
+                    'component_classification',
+                    'component_subclass',
+                    'quantity',
+                    'serial_num',
+                    'issued_to',
+                    'status_html',
+                    'date_acquired',
+                    'id as row_id' 
+                )
+                ->skip($start)
+                ->take($length)
+                ->get();
+
+                return response()->json([
+                    'success' => true,
+                    'draw' => $draw,
+                    'recordsTotal' => $totalCount,
+                    'recordsFiltered' => $totalCount,
+                    'data' => $data,
+                ], 200);
+            break;
+         
             case 'app-list':
                 $user = Auth::user();
                 $empcode = $user->username;

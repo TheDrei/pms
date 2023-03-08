@@ -34,7 +34,7 @@
 </style>
 @endsection
 @section('content-title')
-INVENTORY - Property, Plant, and Equipment (PPE)
+INVENTORY - Property, Plant, and Equipment (PPE)/Disposed
 @endsection
 @section('content')
 
@@ -265,9 +265,6 @@ INVENTORY - Property, Plant, and Equipment (PPE)
     </div>
 </div>
 <!-- END PPE DETAILS -->
-
-<p align="left"><button id="equipmentButton" type="button" style="border-radius: 4px" class="btn btn-primary btn-md" data-toggle="modal" data-target="#largeModal"><i class="fa fa-plus"></i>&nbsp; Add Equipment</button></p>
-
 <div class="card-body">
     <table id="bootstrap-data-table" class="table table-striped table-hover" style="background-color:#FFF;width: 100%;">
         <thead class="thead-light">
@@ -380,6 +377,7 @@ Swal.fire({
 <script src="{{ asset('js/moment.min.js') }}"></script>
 <script src="{{ asset('DataTables/datatables.min.js') }}"></script>
 <script src="{{ asset('js/datetime-moment.js') }}"></script>
+<script src="{{ asset('DataTables/datatables.min.js') }}"></script>
 <script src="{{ asset('js/select2.min.js') }}"></script>
 <script src="{{ asset('sufee-admin-dashboard-master/assets/js/lib/chosen/chosen.jquery.min.js') }}"></script>
 
@@ -915,7 +913,7 @@ Swal.fire({
 				'_token': '{{ csrf_token() }}'
 			},
             "ajax": {
-                "url": "{{ url('json/componentsmain/all') }}",
+                "url": "{{ url('json/componentsmain-disposed/all') }}",
                 "method": "GET"
               },
             "columns": [

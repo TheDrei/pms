@@ -37,6 +37,7 @@ Route::get('ppe/delete-equipment/{id}','EquipmentController@delete');
 Route::get('ppe/accept-equipment/{id}','EquipmentController@accept');
 Route::get('revert-equipment/{id}','EquipmentController@revert');
 Route::post('dispose-equipment','EquipmentController@dispose');
+Route::post('dispose-equipment-confirm','EquipmentController@dispose_confirm');
 Route::post('transfer-equipment','EquipmentController@transfer');
 
 //ICS
@@ -46,6 +47,7 @@ Route::post('update-ics', 'EquipmentController@updateics');
 Route::get('ics/accept-ics/{id}','EquipmentController@acceptics');
 Route::post('transfer-ics','EquipmentController@transferics');
 Route::post('dispose-ics','EquipmentController@disposeics');
+Route::post('dispose-ics-confirm','EquipmentController@disposeics_confirm');
 Route::get('revert-ics/{id}','EquipmentController@revertics');
 Route::get('get/icscomponents-components/{set_id}', 'JsonController@requesticscomponent_items_details');
 Route::get('get/icscomponents-components-id/{id}', 'JsonController@viewrequesticscomponent_items_details_id');
@@ -179,9 +181,12 @@ Route::get('documents', function () {
 });
 
 // Property Number Automation
-Route::get('/ics-get-previous-id', 'ICS\ICSController@getPreviousId')->name('ics-getprevious-id');
+Route::get('/supplies-get-previous-id', 'Supplies\SuppliesController@getPreviousId')->name('supplies-getprevious-id');
 Route::get('/ppe-get-previous-id', 'PPE\PPEController@getPreviousId')->name('ppe-getprevious-id');
 
 
 // Disposal Module
 Route::get('/ppe-disposal', 'PPE\PPEController@for_disposal_ppe')->name('ppe-disposal');
+Route::get('/ppe-diposed', 'PPE\PPEController@disposed_ppe')->name('ppe-disposed');
+Route::get('/supplies-disposal', 'Supplies\SuppliesController@for_disposal_supplies')->name('supplies-disposal');
+Route::get('/supplies-diposed', 'Supplies\SuppliesController@disposed_supplies')->name('supplies-disposed');

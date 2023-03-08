@@ -105,11 +105,15 @@
 
                     <div uk-dropdown="mode: click" style='color:black; background-color:#003763;' class="customhide" >
                         <ul class="uk-nav uk-dropdown-nav">
-                        <li class="uk-active"><a href="{{ route('ppe-disposal') }}">Disposed PPE</a></li>
-                        <li class="uk-active"><a href="#">Disposed Semi-Expendable Supplies</a></li>
-                       
+                        <li class="uk-active"><a href="{{ route('ppe-disposal') }}">PPE - For Disposal</a></li>
+                        <li class="uk-active"><a href="{{ route('ppe-disposed') }}">PPE - Disposed</a></li>
+                        <li class="uk-active"><a href="{{ route('supplies-disposal') }}">Supplies - For Disposal</a></li>
+                        <li class="uk-active"><a href="{{ route('supplies-disposed') }}">Supplies - Disposed</a></li>
                         </ul>
                    </div>
+
+
+                   
 
                 
                   
@@ -170,7 +174,7 @@
                  
                         <ul class="uk-nav-default" uk-nav>
                             <li class="uk-parent">
-                                <a href="#" onclick="hidePPEicon();">Semi-Expendable<span uk-nav-parent-icon></span></a>
+                                <a href="#" onclick="hidePPEicon();">Supplies<span uk-nav-parent-icon></span></a>
                                 <ul style="width:200px!important;">
                                     <li class="uk-parent">
                                         <ul class="uk-nav-sub">
