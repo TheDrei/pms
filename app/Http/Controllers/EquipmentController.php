@@ -923,6 +923,7 @@ class EquipmentController extends Controller
                  'ics_number' =>$request->update_ics_number,  
                 //  'set_id' => $request->trigger_set_id_change[$i],
                  'issued_to' => $request->update_select_staff,
+                 'lifespan' => $request->update_estimated_useful_life[$i],
                  'fullname' => $request->update_fullname,
                  'component_subpropertynumber' => $request->update_comp_subprop[$i],
                  'component_classification' => $request->update_comp_prop_class[$i],

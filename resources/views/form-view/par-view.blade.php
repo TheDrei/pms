@@ -159,7 +159,7 @@
                                 </div>
                                 <input type="checkbox" id="par_number_check" name="par_number_check" value="No PAR No.">
                                 <label style="padding-top:5px;" for="par_number_check"> <small>&nbsp;No PAR No.</small></label><br>
-                            </div>
+                         </div>
                     </div>
 
                     <div class="header-row flex-container">

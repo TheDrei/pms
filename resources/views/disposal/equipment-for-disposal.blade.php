@@ -276,12 +276,13 @@ INVENTORY - Property, Plant, and Equipment (PPE)/For Disposal
                 <th>DIVISION</th>
                 <th style="width: 20%">ITEM DESCRIPTION</th>
                 <th>PAR NO.</th>
-                <th>PURCHASED FROM</th>
+                <th>ESTIMATED USEFUL LIFE</th>
                 <th>ISSUED TO</th>
                 <th>QTY</th>
                 <th>SERIAL NUMBER</th>
                 <th>STATUS</th>
                 <th>DATE ACQUIRED</th>
+                <th>SUGGESTED DATE OF DISPOSAL</th>
                 <th width="10%">ACTION</th>
             </tr>
         </thead>
@@ -935,7 +936,7 @@ Swal.fire({
                 },
 
                 { 
-                    "data": "remarks_from"
+                    "data": "estimated_useful_life"
                 },
                 { 
                     "data": "fullname"
@@ -950,7 +951,16 @@ Swal.fire({
             
                 { "data" : "status_html" },
                 {
-                    "data": "date_acquired"
+                  data: "date_acquired", render: function (data) {
+                     if (data == 0) {return '-';}
+                     return moment(data).format('ll');
+                  }
+                },
+                {
+                  data: "disposal_suggested_date", render: function (data) {
+                     if (data == 0) {return '-';}
+                     return '<strong class="text-info">'+moment(data).format('ll')+'</strong>';
+                  }
                 },
                 {
                     "data": null,

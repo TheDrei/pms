@@ -32,6 +32,7 @@ use App\Components;
 
 use Illuminate\Http\Request;
 use DB;
+use Carbon;
 
 class JsonController extends Controller
 {
@@ -392,16 +393,24 @@ class JsonController extends Controller
                 {
                     $table = new App\Equipment_Components;
                     $tb = $table
-                    ->where('status', '=', 'For Disposal')
+                    ->leftJoin('equipment_check_lifespan', function($join) {
+                        $join->on('equipment_check_lifespan.equipment_id', '=', 'equipment_components.id');
+                      })
+                    ->whereRaw('Date(equipment_check_lifespan.disposal_suggested_date) <= CURDATE()')
+                    ->orWhere('status', '=', 'For Disposal')
                     ->whereNull('deleted_at')
                     ->orderBy('id');
                 }
                 else
                 { 
                     $table = new App\Equipment_Components;
-                    $tb = $table->whereNull('deleted_at')
+                    $tb = $table->leftJoin('equipment_check_lifespan', function($join) {
+                        $join->on('equipment_check_lifespan.equipment_id', '=', 'equipment_components.id');
+                      })
                     ->where('issued_to', $employee_code)
-                    ->where('status', '=', 'For Disposal')
+                    ->whereRaw('Date(equipment_check_lifespan.diposal_suggested_date) <= CURDATE()')
+                    // ->orWhere('status', '=', 'For Disposal')
+                    ->whereNull('deleted_at')
                     ->orderBy('id');
                 }
                 
@@ -425,6 +434,8 @@ class JsonController extends Controller
                     'serial_num',
                     'issued_to',
                     'status_html',
+                    'equipment_check_lifespan.estimated_useful_life AS estimated_useful_life',
+                    'disposal_suggested_date',
                     'date_acquired',
                     'id as row_id' 
                 )
@@ -572,7 +583,11 @@ class JsonController extends Controller
                 {
                     $table = new ICS_Components;
                     $tb = $table->whereNull('deleted_at')
-                    ->where('status', '=', 'For Disposal')
+                    ->leftJoin('supplies_check_lifespan', function($join) {
+                        $join->on('supplies_check_lifespan.supplies_id', '=', 'ics_components.id');
+                      })
+                    ->whereRaw('Date(supplies_check_lifespan.disposal_suggested_date) <= CURDATE()')
+                    // ->where('status', '=', 'For Disposal')
                     ->orderBy('id');
                 }
                 else
@@ -580,6 +595,10 @@ class JsonController extends Controller
                     $table = new ICS_Components;
                     $tb = $table->whereNull('deleted_at')
                     ->where('issued_to', $employee_code)
+                    ->leftJoin('supplies_check_lifespan', function($join) {
+                        $join->on('supplies_check_lifespan.supplies_id', '=', 'ics_components.id');
+                      })
+                    ->whereRaw('Date(supplies_check_lifespan.disposal_suggested_date) <= CURDATE()')
                     ->where('status', '=', 'For Disposal')
                     ->orderBy('id');
                 }

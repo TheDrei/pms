@@ -1,11 +1,7 @@
 @if (Auth::user()->account_type == "Staff")
 <div id="main-menu" class="main-menu collapse navbar-collapse" style="background-color:#003763;">
                 <ul class="nav navbar-nav">
-                    <li class="">
-                        <a href="{{ url('dashboard/all') }}"> <i class="menu-icon fa fa-dashboard"></i>Dashboard</a>
-                    </li>
-
-                   
+               
                     <li class="" >
                         <a href=""><i class="customhide menu-icon ti ti-package"></i>Inventory<i style='float:right; padding-top:7px;' class="fa fa-chevron-circle-down"></i></a>
                     </li>
@@ -27,24 +23,19 @@
                         </ul>
                    </div>
                  
-                    
                    <li class="" >
                         <a href=""><i class="customhide menu-icon ti ti-trash"></i>Disposal<i style='float:right; padding-top:7px;' class="fa fa-chevron-circle-down"></i></a>
                     </li>
+
                     <div uk-dropdown="mode: click" style='color:black; background-color:#003763;' class="customhide" >
                         <ul class="uk-nav uk-dropdown-nav">
-                        <li class="uk-active"><a href="{{ route('ppe-disposal') }}">Disposed PPE</a></li>
-                        <li class="uk-active"><a href="#">Disposed Semi-Expendable Supplies</a></li>
-                       
+                        <li class="uk-active"><a href="{{ route('ppe-disposal') }}">PPE - For Disposal</a></li>
+                        <li class="uk-active"><a href="{{ route('ppe-disposed') }}">PPE - Disposed</a></li>
+                        <li class="uk-active"><a href="{{ route('supplies-disposal') }}">Supplies - For Disposal</a></li>
+                        <li class="uk-active"><a href="{{ route('supplies-disposed') }}">Supplies - Disposed</a></li>
                         </ul>
                    </div>
 
-                        <div uk-dropdown="mode: click" style='color:black; background-color:#003763;' >
-                        <ul class="uk-nav uk-dropdown-nav">
-                        </ul>
-                    </div>
-
-                  
                    <li class="">
                         <a href="{{ url('change-password/all') }}"> <i class="menu-icon fa fa-gear"></i>Change Password</a>
                    </li>
