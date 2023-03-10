@@ -848,7 +848,7 @@ class EquipmentController extends Controller
                 'amount' => $request->update_amount,
                 'quantity' => $request->update_prop_quantity,
                 'component_subpropertynumber' => $request->update_subprop_num,
-                'status' =>  'Edited',
+                // 'status' =>  'Edited',
                 'position' => $request->update_position,
                 'fullname' => $request->update_fullname,
                 'issued_to' => $request->update_select_staff,

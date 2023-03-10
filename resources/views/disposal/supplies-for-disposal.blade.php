@@ -1229,12 +1229,17 @@ Swal.fire({
           "data": "status_html"
         },
         {
-          "data": "date_acquired"
+                  data: "date_acquired", render: function (data) {
+                     if (data == 0) {return '-';}
+                     return moment(data).format('ll');
+                  }
         },
         {
-          "data": "disposal_suggested_date"
+                  data: "disposal_suggested_date", render: function (data) {
+                     if (data == 0) {return '-';}
+                     return '<strong class="text-info">'+moment(data).format('ll')+'</strong>';
+                  }
         },
-
 
         {
           "data": null,
