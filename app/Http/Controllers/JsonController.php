@@ -624,6 +624,8 @@ class JsonController extends Controller
                     'quantity',
                     'serial_num',
                     'issued_to',
+                    'supplies_check_lifespan.life_span AS life_span',
+                    'supplies_check_lifespan.disposal_suggested_date AS disposal_suggested_date',
                     'status_html',
                     'date_acquired',
                     'id as row_id' 

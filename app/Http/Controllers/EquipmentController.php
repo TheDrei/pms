@@ -839,6 +839,7 @@ class EquipmentController extends Controller
                 'date_ics' =>$request->update_date_ics,  
                 'division' => $request->update_select_division,
                 'component_name' => $request->update_comp_prop_component[0],
+                'lifespan' => $request->update_estimated_useful_life[0],
                 'component_name2' => $request->update_prop_desc,
                 'component_classification' => $request->update_categoryHidden,
                 'classification_id' => $request->update_categoryHidden,
@@ -890,9 +891,7 @@ class EquipmentController extends Controller
                 'status' =>  'Edited',
                 'position' => $request->update_position,
                 'fullname' => $request->update_fullname,
-                // 'issued_to' => $request->update_select_staff,
                 'serial_num' => $request->update_serial_num,
-                'date_acquired' => $request->update_date_acquired,
                 'date_issued' => $request->update_date_issued,
                 'employee_code' => $request->update_propassign_form,
                 'remarks_from' => $request->update_remarks_from,
@@ -905,15 +904,9 @@ class EquipmentController extends Controller
                 'remarks_charged' => $request->update_remarks_charged,
                 ]);
              
-                //  ADD ROW
                 $set_id_components = DB::table('ics_components')->get()->last()->id;
                 $equip_id_components = DB::table('ics_components_items')->get()->last()->equip_id+1;
-                // if(isset($request->update_component_issued_to)){ 
-                
-                //   Session::flash('message',"Successfully Saved Data");
-                //  }
-               //  END ADD ROW
-
+           
         //ADD COMPONENTS SECTION
         $size = DB::table('ics_components_items')->where('set_id', $set_id)->count();
         if(isset($request->update_component_issued_to)){ 
@@ -921,7 +914,7 @@ class EquipmentController extends Controller
              DB::table('ics_components_items')->where('equip_id', $i)->where('set_id', $set_id)
              ->update([
                  'ics_number' =>$request->update_ics_number,  
-                //  'set_id' => $request->trigger_set_id_change[$i],
+                 'date_acquired' => $request->update_date_acquired,
                  'issued_to' => $request->update_select_staff,
                  'lifespan' => $request->update_estimated_useful_life[$i],
                  'fullname' => $request->update_fullname,
@@ -966,11 +959,11 @@ class EquipmentController extends Controller
             // DB::table('ics_components_items')->insert($componentSet2);
             // END ADDITIONAL COMPONENTS
 
+          } else {
+
           }
-          else{}
         //END ADD COMPONENTS SECTION  
        }
-
        return redirect()->back()->with('message-edited','Success');
     }
 
