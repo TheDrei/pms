@@ -91,7 +91,6 @@ INVENTORY - Property, Plant, and Equipment (PPE)
 </div>
 <!-- END UPDATE EQUIPMENT MODAL -->
 
-
 <!-- START TRANSFER -->
 <div class="modal fade" id="transferEquipment">
     <div class="modal-dialog modal-lg">
@@ -564,7 +563,8 @@ Swal.fire({
             width: '100%',
         });
 
-        $.getJSON("{{ route('ppe-getprevious-id') }}", function(datajson) {
+
+         $.getJSON("{{ route('par-getprevious-id') }}", function(datajson) {
                 var current_date = new Date();
                 var type = ""; 
                 var current_month=('0'+(current_date.getMonth()+1)).slice(-2)
@@ -734,7 +734,7 @@ Swal.fire({
                 var propassign_formvar = $("#propassign_form_1 option:selected").text();
             }
 
-            $("#property-table tr:last").after("<tr class='solid-borders'><td class='solid-borders'><select onchange='getClass(this.value)' style='font-size:12px; width:300px;' name='equip_subcat[]' id='equip_subcat_" + proctr + "' class='form-control prop_assign_ctr' required><option value='' selected>Select a Sub-Category</option></select></td><td class='solid-borders'><input style='font-size:12px; width:200px;' type='text' class='form-control' name='equipment_category[]' id='equipment_category_" + proctr + "' required></td><td class='solid-borders'><textarea style='font-size:12px; width:200px;' type='text' class='form-control prop_component_ctr' name='prop_component[]' id='prop_component_" + proctr + "' required></textarea></td><td class='solid-borders'><input style='font-size:12px; width:50px;' type='number' class='form-control' value='1' name='component_quantity[]' id='component_quantity_" + proctr + "'></td><td class='solid-borders'><input style='font-size:12px; width:50px;' type='text' class='form-control' name='equip_subprop_num[]' value='" + proctr + "'></td><td class='solid-borders'><input style='font-size:12px; width:200px;' type='text' class='form-control' name='equip_serial_num[]' id='equip_serial_num_" + proctr + "' value='' required></td><td class='solid-borders'><input style='font-size:12px; width:200px;' type='number' class='form-control' name='estimated_useful_life[]' id='estimated_useful_life_" + proctr + "' value=''></td><td class='solid-borders'><input style='font-size:12px; width:200px;' step='any' type='number' class='form-control unit-cost' name='equip_unit_cost[]' id='equip_unit_cost_" + proctr + "' value='' required></td><td class='solid-borders'><textarea style='font-size:12px; width:200px;' step='any' type='text' class='form-control' name='remarks[]' id='remarks_" + proctr + "' value=''></textarea></td><td class='solid-borders'>" + del_btn + "</td></tr>");
+            $("#property-table tr:last").after("<tr class='solid-borders'><td class='solid-borders'><input type='text' class='form-control' name='property_number[]' id='property_number_"+ proctr +"' style='font-size:12px; width:200px;'></td><td class='solid-borders'><select onchange='getClass(this.value)' style='font-size:12px; width:300px;' name='equip_subcat[]' id='equip_subcat_" + proctr + "' class='form-control prop_assign_ctr' required><option value='' selected>Select a Sub-Category</option></select></td><td class='solid-borders'><input style='font-size:12px; width:200px;' type='text' class='form-control' name='equipment_category[]' id='equipment_category_" + proctr + "' required></td><td class='solid-borders'><textarea style='font-size:12px; width:200px;' type='text' class='form-control prop_component_ctr' name='prop_component[]' id='prop_component_" + proctr + "' required></textarea></td><td class='solid-borders'><input style='font-size:12px; width:50px;' type='number' class='form-control' value='1' name='component_quantity[]' id='component_quantity_" + proctr + "'></td><td class='solid-borders'><input style='font-size:12px; width:50px;' type='text' class='form-control' name='equip_subprop_num[]' value='" + proctr + "'></td><td class='solid-borders'><input style='font-size:12px; width:200px;' type='text' class='form-control' name='equip_serial_num[]' id='equip_serial_num_" + proctr + "' value='' required></td><td class='solid-borders'><input style='font-size:12px; width:200px;' type='number' class='form-control' name='estimated_useful_life[]' id='estimated_useful_life_" + proctr + "' value=''></td><td class='solid-borders'><input style='font-size:12px; width:200px;' step='any' type='number' class='form-control unit-cost' name='equip_unit_cost[]' id='equip_unit_cost_" + proctr + "' value='' required></td><td class='solid-borders'><textarea style='font-size:12px; width:200px;' step='any' type='text' class='form-control' name='remarks[]' id='remarks_" + proctr + "' value=''></textarea></td><td class='solid-borders'>" + del_btn + "</td></tr>");
 
 
             $(".unit-cost").on("keydown keyup", function() {
@@ -874,8 +874,6 @@ Swal.fire({
         }
 
        
-
-     
         function hideElements() {
             $("#prop_umeasure").change(function() {
                 if ($("#prop_umeasure").val() == "unit") {
@@ -1115,7 +1113,7 @@ Swal.fire({
 
             if (id != 0) {
                 var proctr = 0;
-                del_btn = "<a href='#' class='btn btn-danger btn-sm' style='border-radius:100px' onclick='delComponents(this)'><i class='fa fa-close'></i></a>";
+                del_btn = "<a href='#' class='btn btn-danger btn-sm' style='border-radius:100px' onclick='deletePPEComponent("+datajson[0].id+")'><i class='fa fa-close'></i></a>";
                 proctr -= 1;
             }
 
@@ -1124,7 +1122,7 @@ Swal.fire({
             }).done(function(datajson) {
                 jQuery.each(datajson, function(i, obj) {
                     var selectlength = ($(".selectlength").length);
-                    $("#edit-property-table tr:last").after("<tr class='solid-borders'><td class='solid-borders'><select onchange='updategetClass(this.value)'  style='font-size:12px; width: 200px;' name='update_comp_equip_subcat[]' id='update_comp_equip_subcat_" + i + "' class='form-control prop_assign_ctr' ><option value='" + obj.component_subclass + "' selected>" + obj.component_subclass + "</option></select></td><td class='solid-borders'><input style='font-size:12px; width: 200px;' type='text' class='form-control' name='update_comp_prop_class[]' id='update_comp_prop_class_" + i + "' value='" + obj.classification + "'></td><td class='solid-borders'><textarea style='font-size:12px; overflow:auto; height:100px;width:320px; word-wrap: break-word;' type='text' class='form-control prop_component_ctr' name='update_comp_prop_component[" + i + "]' id='update_comp_prop_component_" + i + "' value='" + obj.component_name + "'>" + obj.component_name + "</textarea></td><td class='solid-borders'><input style='font-size:12px; width: 200px;' type='number' class='form-control' value='" + obj.quantity + "' name='update_component_quantity[]' id='update_component_quantity_" + i + "'></td><td class='solid-borders'><input style='font-size:12px; width: 200px;' type='text' class='form-control' name='update_subproperty_number[]' id='update_subproperty_number_" + i + "' value='" + obj.component_subpropertynumber + "'></td>	<td class='solid-borders'><input style='font-size:12px; width: 200px;' type='text' class='form-control' name='equip_serial_num[]' id='equip_serial_num_" + i + "' value='" + obj.serial_num + "'></td><td class='solid-borders'><input style='font-size:12px; width: 200px;' type='text' class='form-control' name='update_estimated_useful_life[]' id='update_estimated_useful_life_" + i + "' value='" + obj.estimated_useful_life + "'></td><td class='solid-borders selectlength'><select name='update_component_issued_to[" + i + "]' id='update_component_issued_to_" + i + "' onchange='getDivision2(this.value)' data-placeholder='Select a Staff' class='form-control'><option value='" + obj.issued_to + "' selected>" + obj.fullname + "</option></select></td><td class='solid-borders'><input style='font-size:12px; width:200px;' type='number' step='any' class='form-control update-unit-cost' name='update_equip_unit_cost[]' id='update_equip_unit_cost_" + proctr + "' value='" + obj.amount + "' required></td><td class='solid-borders'><textarea style='font-size:12px; width:200px;'class='form-control' name='update_remarks[]' id='update_remarks_" + proctr + "'  value='" + obj.remarks + "'>" + obj.remarks + "</textarea></td><td class='solid-borders'><input type='hidden' name='update_comp_equip_subcat_get[]' id='update_comp_equip_subcat_get_" + i + "' value='" + obj.component_subclass + "'  class='item-details'><input type='hidden' name='update_comp_icsnumber[]' id='update_comp_icsnumber_" + i + "' value='" + obj.component_subclass + "'  class='item-details'><input type='hidden' name='update_comp_division[]' id='update_comp_division_" + i + "' value='" + obj.division + "'  class='update-employee-details'><input type='hidden' name='update_comp_employeecode[]' id='update_comp_employeecode_" + i + "' value='" + obj.employee_code + "'  class='update-employee-details'><input type='hidden' name='update_comp_position[]' id='update_comp_position_" + i + "' value='" + obj.position + "'  class='update-employee-details'><input type='hidden' name='trigger_set_id_change[]' id='trigger_set_id_change_" + i + "' value='" + obj.set_id + "'  class='update-employee-details'>");
+                    $("#edit-property-table tr:last").after("<tr class='solid-borders'><td class='solid-borders'><input style='font-size:12px; width:200px;' type='text' class='form-control' name='update_property_number[]' id='update_property_number_" + proctr + "' value='" + obj.property_number + "' required></td><td class='solid-borders'><select onchange='updategetClass(this.value)'  style='font-size:12px; width: 200px;' name='update_comp_equip_subcat[]' id='update_comp_equip_subcat_" + i + "' class='form-control prop_assign_ctr' ><option value='" + obj.component_subclass + "' selected>" + obj.component_subclass + "</option></select></td><td class='solid-borders'><input style='font-size:12px; width: 200px;' type='text' class='form-control' name='update_comp_prop_class[]' id='update_comp_prop_class_" + i + "' value='" + obj.classification + "'></td><td class='solid-borders'><textarea style='font-size:12px; overflow:auto; height:100px;width:320px; word-wrap: break-word;' type='text' class='form-control prop_component_ctr' name='update_comp_prop_component[" + i + "]' id='update_comp_prop_component_" + i + "' value='" + obj.component_name + "'>" + obj.component_name + "</textarea></td><td class='solid-borders'><input style='font-size:12px; width: 200px;' type='number' class='form-control' value='" + obj.quantity + "' name='update_component_quantity[]' id='update_component_quantity_" + i + "'></td><td class='solid-borders'><input style='font-size:12px; width: 200px;' type='text' class='form-control' name='update_subproperty_number[]' id='update_subproperty_number_" + i + "' value='" + obj.component_subpropertynumber + "'></td>	<td class='solid-borders'><input style='font-size:12px; width: 200px;' type='text' class='form-control' name='equip_serial_num[]' id='equip_serial_num_" + i + "' value='" + obj.serial_num + "'></td><td class='solid-borders'><input style='font-size:12px; width: 200px;' type='text' class='form-control' name='update_estimated_useful_life[]' id='update_estimated_useful_life_" + i + "' value='" + obj.estimated_useful_life + "'></td><td class='solid-borders selectlength'><select name='update_component_issued_to[" + i + "]' id='update_component_issued_to_" + i + "' onchange='getDivision2(this.value)' data-placeholder='Select a Staff' class='form-control'><option value='" + obj.issued_to + "' selected>" + obj.fullname + "</option></select></td><td class='solid-borders'><input style='font-size:12px; width:200px;' type='number' step='any' class='form-control update-unit-cost' name='update_equip_unit_cost[]' id='update_equip_unit_cost_" + proctr + "' value='" + obj.amount + "' required></td><td class='solid-borders'><textarea style='font-size:12px; width:200px;'class='form-control' name='update_remarks[]' id='update_remarks_" + proctr + "'  value='" + obj.remarks + "'>" + obj.remarks + "</textarea></td><td class='solid-borders'><a href='#' class='btn btn-danger btn-sm' style='border-radius:100px' onclick='deletePPEComponent("+obj.id+")'><i class='fa fa-close'></i></a></td><input type='hidden' name='update_comp_equip_subcat_get[]' id='update_comp_equip_subcat_get_" + i + "' value='" + obj.component_subclass + "'  class='item-details'><input type='hidden' name='update_comp_icsnumber[]' id='update_comp_icsnumber_" + i + "' value='" + obj.component_subclass + "'  class='item-details'><input type='hidden' name='update_comp_division[]' id='update_comp_division_" + i + "' value='" + obj.division + "'  class='update-employee-details'><input type='hidden' name='update_comp_employeecode[]' id='update_comp_employeecode_" + i + "' value='" + obj.employee_code + "'  class='update-employee-details'><input type='hidden' name='update_comp_position[]' id='update_comp_position_" + i + "' value='" + obj.position + "'  class='update-employee-details'><input type='hidden' name='trigger_set_id_change[]' id='trigger_set_id_change_" + i + "' value='" + obj.set_id + "'  class='update-employee-details'>");
 
                     updatecalculateSum();
                     function updatecalculateSum() {
@@ -1353,6 +1351,22 @@ Swal.fire({
             if (result.value) {
                
                 window.location.href = "{{ url('ppe/delete') }}/" + id;
+            }
+        })
+    }
+
+    function deletePPEComponent(id) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete the record.'
+        }).then((result) => {
+            if (result.value) {
+                window.location.href = "{{ url('ppe/delete-components') }}/" + id;
             }
         })
     }

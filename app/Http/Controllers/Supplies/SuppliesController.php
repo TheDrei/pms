@@ -8,9 +8,9 @@ use Auth;
 
 class SuppliesController 
 {
-    public function getPreviousId()
+    public function getPreviousIdICS()
     {
-      $previousId = DB::table('ics_components_items')->max('id');
+      $previousId = DB::table('last_used_series')->where('id', 2)->max('last_used_series');
       return response()->json(['previous_id' => $previousId]);
     }
 
@@ -21,5 +21,13 @@ class SuppliesController
     public function disposed_supplies()
     {
         return view('disposal.supplies-disposed');
+    }
+
+    public function delete_component($id)
+    {
+        $ics_items = new App\ICS_Items;
+        $ics_items->where('id',$id)
+        ->delete();
+        return redirect()->back()->with('message-deleted','Success');
     }
  }

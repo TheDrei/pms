@@ -164,33 +164,19 @@
 
                     <div class="header-row flex-container">
                         <div class="flex-grow-1">
-                                <div class="font-weight-bold">
-                                  Property No. <a href="#" class="btn btn-primary btn-sm" id="addPropertyNumber" style="border-radius: 100px"><i class="fa fa-plus"></i></a>
-                                </div>
-                                <div style="width:300px;">
-                                <input value="" class="property_number form-control" placeholder="Property No." name='property_number' id="property_number" required>
-                                </div>
-                                <span class="property_numbers">
-                              
-                                </span>
-                        </div>
-                 
-                        <div>
-                               <div class="font-weight-bold">
-                                   Unit of Measure
-                                </div>
-                                <div style="width:300px;">
+                            <div class="font-weight-bold">
+                                    Unit of Measure
+                            </div>
+                            <div style="width:300px;">
                                 <select name="prop_umeasure" id="prop_umeasure" data-placeholder="Choose a Unit of Measure..." class="form-control" required>
                                         <option value="" disabled selected>Select Unit of Measure</option>
                                         <option value="unit">unit</option>
                                         <option value="set">set</option>
-                                    </select>
-                                </div>
+                                </select>
                             </div>
-                    </div>
+                        </div>
 
-                    <div class="header-row flex-container">
-                        <div class="flex-grow-1">
+                        <div>
                                 <div class="font-weight-bold">
                                 Date of PAR
                                 </div>
@@ -201,6 +187,10 @@
                                 <label style="padding-top:5px;" for="date_par_check"> <small>&nbsp;No Date of PAR</small></label><br>
                         
                         </div>
+                    </div>
+
+                    <div class="header-row flex-container">
+                      
                         <div>
                                <div class="font-weight-bold">
                                 Date Acquired 
@@ -221,7 +211,7 @@
                     <table id="property-table" class="property-table"  style="border: 1px solid black;  text-align: center;">
                         <thead class="solid-borders">
                             <tr class="solid-borders">
-                                <!-- <th class="solid-borders">Inventory Item Number</th> -->
+                                <th class="solid-borders">Property No.</th>
                                 <th class="solid-borders">Sub-Category</th>
                                 <th class="solid-borders">Category</th>
                                 <th class="solid-borders">Description</th>
@@ -231,6 +221,7 @@
                                 <th class="solid-borders">Estimated Useful Life</th>
                                 <th class="solid-borders">Unit Cost</th>
                                 <th class="solid-borders">Remarks</th>
+                                <th class="solid-borders">Action</th>
                             </tr>
                         </thead>
                         <tbody>

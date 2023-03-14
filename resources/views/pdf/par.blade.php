@@ -173,8 +173,17 @@
                             <tr style="">
                             <td style="vertical-align:top;"><hr style="height:2px; visibility:hidden;" />{{ $equipment->quantity }}</td>
                             <td style="text-align: left; font-size:12px; vertical-align:top;"><hr style="height:5px; visibility:hidden;" />{{ $equipment->component_umeasure }}</td>
-                            <td style="vertical-align:top;">{{ $equipment->component_name }}<br/><br/>{{ $equipment->remarks }}<br/>SN: {{ $equipment->serial_num }}<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/></td>
-                            <td style="text-align: center; vertical-align:top;">{{ $equipment->property_number }}<br/><br/>{{ $equipment->property_number_1 }}<br/><br/>{{ $equipment->property_number_2 }}</td>
+                            <td style="vertical-align:top;">{{ $equipment->component_name }}<br/><br/>{{ $equipment->remarks }}<br/>SN: {{ $equipment->serial_num }}</td>
+                            <td style="text-align: center; vertical-align:top;">{{ $equipment->property_number }}<br/><br/>
+                            @if (count($data) > 1)
+                            <br/><br/><br/><br/>
+                            @else
+                            <br/><br/><br/><br/>
+                            <br/><br/><br/><br/>
+                            <br/><br/><br/><br/>
+                            <br/><br/><br/><br/>
+                            @endif
+                            </td>
                             <td style="text-align: center; vertical-align:top;">{{ date('d M y', strtotime($equipment->date_acquired)) }}</td>
                             <td style="vertical-align:top;"> {{ number_format($equipment->amount, 2) }}</td>
                             </tr>

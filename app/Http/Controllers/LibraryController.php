@@ -322,11 +322,53 @@ class LibraryController extends Controller
      }
      // End
 
-       // Charging Library CRUD 
-       public function charging()
-       {
-           return view('library.charging-library');
-       }   
+     public function lastUsedSeriesNumber()
+     {
+        return view('library.last-used-series');
+     }    
+     
+     public function lastUsedSeriesNumberTable(Request $request)
+     {
+        $table = DB::table('last_used_series')->where('deleted_at',null);
+        $totalCount = (clone $table)->count();
+                  $draw = $request->get('draw');
+                  $start = (!$request->get('start')) ? 0 : $request->get('start');
+                  $length = (!$request->get('length')) ? 900000 : $request->get('length');
+                   $data = $table
+                  ->skip($start)
+                  ->take($length)
+                  ->orderBy('id', 'ASC')
+                  ->get();
+                  return response()->json([
+                      'success' => true,
+                      'draw' => $draw,
+                      'recordsTotal' => $totalCount,
+                      'recordsFiltered' => $totalCount,
+                      'data' => $data,
+                  ], 200);
+     }   
+     
+     public function lastUsedSeriesNumberShowData($id)
+     {
+         return json_encode(DB::table('last_used_series')->where('id',$id)->whereNull('deleted_at', )->get()); 
+     } 
+
+     public function lastUsedSeriesNumberUpdate(Request $request)
+     {
+         $id = $request->update_last_used_series_id;
+         DB::table('last_used_series')->where('id', $id)
+         ->update([
+                 'last_used_series' => $request->update_last_used_series,
+                 'type' => $request->update_type
+                 ]);
+         return redirect()->back()->with('update-success-last-used-series', 'Successfully Updated!');
+     } 
+
+   // Charging Library CRUD 
+    //    public function charging()
+    //    {
+    //        return view('library.charging-library');
+    //    }   
   
     //    public function chargingLibrary(Request $request)
     //    {

@@ -27,7 +27,7 @@ class EquipmentController extends Controller
     }
   
     // Store ICS
-    public function storeics2(Request $request)
+    public function storeics(Request $request)
     {
         try
         {
@@ -38,9 +38,7 @@ class EquipmentController extends Controller
             'fullname' => $request->getstaffname,
             'position' => $request->employee_position_get,
             'fund_cluster' => $request->fund_cluster,
-            'property_number' => $request->property_number,  
-            'property_number_1' => isset($request->property_number_array[0]) ?  $request->property_number_array[0] : null,  
-            'property_number_2' => isset($request->property_number_array[1]) ?  $request->property_number_array[1] : null,   
+            'property_number' => $request->property_number[0],  
             'inventory_item_number' => $request->inventory_item_number[0],  
             'ics_number' =>$request->ics_number,  
             'ics_type' =>$request->ics_type, 
@@ -76,6 +74,13 @@ class EquipmentController extends Controller
             ];
             DB::table('ics_components')->insert($componentSet);
             Session::flash('message',"Successfully Saved Data");
+
+            // Increment number of last used
+            DB::table('last_used_series')->where('id', 2)
+            ->update([  
+                'last_used_series' =>  DB::raw('last_used_series+1') 
+            ]);
+            //  End Increment number of last used
 
             $set_id = DB::table('ics_components')->get()->last()->id;
          
@@ -113,7 +118,7 @@ class EquipmentController extends Controller
             'position' => $request->employee_position_get,
             'fund_cluster' => $request->fund_cluster,
             'fund_number' => $request->fund_number,
-            'property_number' => $request->property_number,  
+            'property_number' => $request->property_number[$index],  
             'inventory_item_number' => $request->inventory_item_number[$index],  
             'ics_number' =>$request->ics_number,  
             'set_id' => $set_id_components,
@@ -183,9 +188,7 @@ class EquipmentController extends Controller
             'fund_number' => $request->fund_number,
             'date_par' => $request->date_par,
             'ppe_type' => $request->ppe_type,  
-            'property_number' => $request->property_number,  
-            'property_number_1' => isset($request->property_number_array[0]) ?  $request->property_number_array[0] : null,  
-            'property_number_2' => isset($request->property_number_array[1]) ?  $request->property_number_array[1] : null,   
+            'property_number' => $request->property_number[0],  
             'status' => 'Acquired',
             'status_html' => "<div class='badge-success' style='color: white; font-weight:bold; text-align:center; border-radius:10px; height:30px;'><small style='font-weight:bold;'>Acquired</small></div>",
             'division' => $request->select_division,
@@ -216,9 +219,15 @@ class EquipmentController extends Controller
             ];
             DB::table('equipment_components')->insert($componentSet2);
             }
-
+            
+            // Increment number of last used
+            DB::table('last_used_series')->where('id', 1)
+            ->update([  
+                'last_used_series' =>  DB::raw('last_used_series+1') 
+             ]);
+            //  End Increment number of last used
+            
             $set_id = DB::table('equipment_components')->get()->last()->id;
-
             $user = Auth::user();
             $username = $user->username;
             $division = getDivision($user->division);
@@ -236,17 +245,6 @@ class EquipmentController extends Controller
          
             DB::table('history_log_ppe')->insert($historylogSet);
 
-          //   if(isset($request->property_number_array)){ 
-          //     $propertyNumberSet = [];
-          //     foreach($request->property_number_array as $index => $property_number_array) {
-          //     $propertyNumberSet[] = [
-          //     'property_number_1' =>$request->property_number_array[0],  
-          //     'property_number_2' => $request->property_number_array[1],
-          //     ];
-          //    }
-          //     DB::table('equipment_sets_components')->insert($propertyNumberSet);
-          //  }
-            
             if(isset($request->equip_serial_num)){ 
             $componentSet = [];
             foreach($request->equip_serial_num as $index => $equip_serial_num) {
@@ -258,14 +256,12 @@ class EquipmentController extends Controller
             'fund_cluster' => $request->fund_cluster,
             'fund_number' => $request->fund_number,
             'ppe_type' => $request->ppe_type,  
-            'property_number' => $request->property_number,  
-            'property_number_1' => isset($request->property_number_array[0]) ?  $request->property_number_array[0] : null,  
-            'property_number_2' => isset($request->property_number_array[1]) ?  $request->property_number_array[1] : null,   
             // 'inventory_item_number' => $request->inventory_item_number[$index],  
             'set_id' => $set_id,
             'status' => 'Acquired',
             'status_html' => "<div class='badge-success' style='color: white; font-weight:bold; text-align:center; border-radius:10px; height:30px;'><small style='font-weight:bold;'>Acquired</small></div>",
             'division' => $request->select_division,
+            'property_number' => $request->property_number[$index],  
             'component_name' => $request->prop_component[$index],
             'estimated_useful_life' => $request->estimated_useful_life[$index],
             'component_umeasure' => $request->prop_umeasure,
@@ -692,20 +688,6 @@ class EquipmentController extends Controller
     }
 
 
-
-
-    public function update(Request $request)
-    {
-      {
-      $components = App\Components::findorfail($request->id);
-      $components->component_name = $request->update_prop_desc;
-      $components->save();
-         
-      } 
-          return redirect('admin/equipment/all');
-          
-    }
-
    
     public function updateequipment(Request $request)
     { 
@@ -721,9 +703,7 @@ class EquipmentController extends Controller
                 'serial_num' => $request->equip_serial_num[0],
                 'par_number' => $request->update_par_number,
                 'date_par' => $request->update_date_par,
-                'property_number' => $request->update_property_number,
-                'property_number_1' => isset($request->update_property_number_array[0]) ?  $request->update_property_number_array[0] : null,  
-                'property_number_2' => isset($request->update_property_number_array[1]) ?  $request->update_property_number_array[1] : null,   
+                'property_number' => $request->update_property_number[0],
                 'fund_cluster' => $request->update_fund_cluster,
                 'fund_number' => $request->update_fund_number,
                 'ppe_type' => $request->update_ppe_type,
@@ -756,9 +736,7 @@ class EquipmentController extends Controller
         ->where('set_id', $id)
         ->update([
                 'par_number' => $request->update_par_number,
-                'property_number' => $request->update_property_number,
-                'property_number_1' => isset($request->update_property_number_array[0]) ?  $request->update_property_number_array[0] : null,  
-                'property_number_2' => isset($request->update_property_number_array[1]) ?  $request->update_property_number_array[1] : null,   
+                // 'property_number' => $request->update_property_number,
                 'date_par' => $request->update_date_par,
                 'fund_cluster' => $request->update_fund_cluster,
                 'ppe_type' => $request->update_ppe_type,
@@ -796,8 +774,8 @@ class EquipmentController extends Controller
            for ($i=0; $i < $size; $i++){
              DB::table('equipment_sets_components')->where('equip_id', $i)->where('set_id', $set_id)
              ->update([
-                //  'inventory_item_number' => $request->update_inventory_item_number[$i], 
                 //  'issued_to' => $request->update_component_issued_to[$i],
+                 'property_number' => $request->update_property_number[$i], 
                  'remarks' => $request->update_remarks[$i],
                  'quantity' => $request->update_component_quantity[$i],
                  'component_subpropertynumber' => $request->update_subproperty_number[$i],
@@ -829,9 +807,7 @@ class EquipmentController extends Controller
                 'ics_umeasure' => $request->update_prop_umeasure,
                 'fund_cluster' => $request->update_fund_cluster,
                 'fund_number' => $request->update_fund_number,
-                'property_number' => $request->update_property_number,
-                'property_number_1' => isset($request->update_property_number_array[0]) ?  $request->update_property_number_array[0] : null,  
-                'property_number_2' => isset($request->update_property_number_array[1]) ?  $request->update_property_number_array[1] : null,   
+                'property_number' => $request->update_property_number[0],
                 'location' => $request->update_location, 
                 'ics_type' => $request->update_ics_type, 
                 'ics_category' => $request->update_ics_category, 
@@ -875,9 +851,7 @@ class EquipmentController extends Controller
                 'fund_cluster' => $request->update_fund_cluster,
                 'fund_number' => $request->update_fund_number,
                 'ics_number' =>$request->update_ics_number,  
-                'property_number' =>$request->update_property_number, 
-                'property_number_1' => isset($request->update_property_number_array[0]) ?  $request->update_property_number_array[0] : null,  
-                'property_number_2' => isset($request->update_property_number_array[1]) ?  $request->update_property_number_array[1] : null,    
+                'property_number' =>$request->update_property_number[0], 
                 'ics_category' => $request->update_ics_category, 
                 'date_ics' =>$request->update_date_ics,  
                 'division' => $request->update_select_division,
@@ -920,6 +894,7 @@ class EquipmentController extends Controller
                  'fullname' => $request->update_fullname,
                  'component_subpropertynumber' => $request->update_comp_subprop[$i],
                  'component_classification' => $request->update_comp_prop_class[$i],
+                 'property_number' => $request->update_property_number[$i],
                  'inventory_item_number' => $request->update_comp_property_number[$i],
                  'subclass_id' => $request->update_comp_equip_subcat[$i],
                  'division' => $request->update_comp_division[$i],

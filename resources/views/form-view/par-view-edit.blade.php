@@ -140,21 +140,7 @@
                     </div>
 
                     <div class="header-row flex-container">
-                        <div class="flex-grow-1">
-                                <div class="font-weight-bold">
-                                  Property No.  <a href="#" class="btn btn-primary btn-sm" id="editAddPropertyNumber" style="border-radius: 200px;"><i class="fa fa-plus"></i></a>
-                                </div>
-                                <div style="width:300px;">
-                                <input class="form-control" placeholder="Property No." name="update_property_number" id="update_property_number" required>
-                                </div>
-
-                                <div style="width:300px;" class="update_property_numbers">
-
-                                </div>
-                              
-                        
-                        </div>
-                        <div>
+                            <div class="flex-grow-1">
                                <div class="font-weight-bold">
                                    Unit of Measure
                                 </div>
@@ -166,17 +152,18 @@
                                     </select>
                                 </div>
                             </div>
-                    </div>
 
-                    <div class="header-row flex-container">
-                        <div class="flex-grow-1">
+                             <div>
                                 <div class="font-weight-bold">
                                 Date of PAR
                                 </div>
                                 <div style="width:300px;">
                                 <input type="date" name="update_date_par" id="update_date_par" class="form-control" required>
                                 </div>
-                        </div>
+                            </div>
+                    </div>
+
+                    <div class="header-row flex-container">
                         <div>
                                <div class="font-weight-bold">
                                 Date Acquired 
@@ -184,7 +171,7 @@
                                 <div style="width:300px;">
                                 <input type="date" name="update_date_acquired" id="update_date_acquired" class="form-control" required>
                                 </div>
-                            </div>
+                         </div>
                     </div>
                 </div>
                 <div style="float:right;">
@@ -194,7 +181,7 @@
                     <table id="edit-property-table" class="edit-property-table"  style="border: 1px solid black;  text-align: center;">
                         <thead class="solid-borders">
                             <tr class="solid-borders">
-                                <!-- <th class="solid-borders">Inventory Item Number</th> -->
+                                <th class="solid-borders">Property No.</th>
                                 <th class="solid-borders">Sub-Category</th>
                                 <th class="solid-borders">Category</th>
                                 <th class="solid-borders">Description</th>
@@ -205,6 +192,7 @@
                                 <th class="solid-borders">Issued To</th>
                                 <th class="solid-borders">Unit Cost</th>
                                 <th class="solid-borders">Remarks</th>
+                                <th class="solid-borders">Action</th>
                             </tr>
                         </thead>
                         <tbody>

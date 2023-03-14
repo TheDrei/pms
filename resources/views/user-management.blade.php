@@ -68,7 +68,7 @@
 <!-- Create New User-->
 
  <!-- View User -->   
-      <div class="modal fade" id="categoryLibraryModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+      <div class="modal fade" id="userLibraryModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -78,19 +78,58 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                            <form method="POST" action="{{ url('update/ppe-category') }}">
+                            <form method="POST" action="{{ url('update/users') }}">
                             @csrf
-                             <input type="hidden" name="update_category_id" id="update_category_id" value="">
-                                  <div class="row">
+                             <input type="hidden" name="update_user_id" id="update_user_id" value="">
+                                    <div class="row">
                                         <div class="col-sm-4">
-                                            <b>Description</b>
+                                            <b>Username</b>
                                         </div>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" name="update_category_description" id="update_category_description" value="">
+                                            <input type="text" class="form-control" name="username" id="username" value="" disabled>
+                                        </div>
+                                   </div>
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <b>Full Name</b>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" name="full_name" id="full_name" value="" disabled>
                                         </div>
                                     </div>
                                     <br/>
-                                  </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <b>Account Type</b>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" name="usertype" id="usertype" value="" disabled>
+                                        </div>
+                                    </div>
+                                    <br/>
+
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <b>Division</b>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" name="division" id="division" value="" disabled>
+                                        </div>
+                                    </div>
+                                    <br/>
+
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <b>Position</b>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" name="position" id="position" value="" disabled>
+                                        </div>
+                                    </div>
+                                    <br/>
+                              </div>
                             <div class="modal-footer">
                                 <button style="border-radius:4px;" type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                                 <button style="border-radius:4px;" type="submit" class="btn btn-primary">Confirm</button>
@@ -280,17 +319,20 @@ Swal.fire({
    
      function editUser(id)
       {
-        $.getJSON( "{{ url('get/ppe-category') }}/"+ id, function( datajson ) {
+        $.getJSON( "{{ url('user/details') }}/"+ id, function( datajson ) {
                     }).done(function(datajson){
                         jQuery.each(datajson,function(i,obj){
-                        $("#update_category_id").val(obj.id);
-                        $("#update_category_description").val(obj.sub_type);
+                        $("#full_name").val(obj.fullname);
+                        $("#username").val(obj.username);
+                        $("#usertype").val(obj.usertype);
+                        $("#division").val(obj.division_acro);
+                        $("#position").val(obj.position_desc_current);
                         });
                     }).fail(function() {
                         alert("Error loading data! Page reloading, please wait...")
                         location.reload();
         });
-        $("#categoryLibraryModal").modal("toggle");
+        $("#userLibraryModal").modal("toggle");
       }
     </script>
 @endsection

@@ -117,20 +117,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="row">
-                    <div class="flex-grow-1" style="padding-left:15px;">
-                                <div class="font-weight-bold">
-                                  Value
-                                </div>
-                                <div style="width:300px;">
-                                <select name="sp_categories" id="sp_categories" data-placeholder="Choose a Category" class="form-control" required>
-                                        <option value="" disabled selected>Select a Category</option>
-                                        <option value="HV">High Value</option>
-                                        <option value="LV">Low Value</option>
-                                 </select>
-                                </div>
-                    </div>
-                    </div>
+              
                     <div class="header-row flex-container">
                         <div class="flex-grow-1">
                                 <div class="font-weight-bold">
@@ -145,17 +132,23 @@
                                 <label style="padding-top:5px;" for="fund_cluster_check"> <small>&nbsp;No Fund Cluster</small></label><br>
                         
                     </div>
+
+
                     <div>
-                               <div class="font-weight-bold">
-                                    ICS No.
-                                </div>
-                                <div style="width:300px;">
-                                    <input class="form-control" placeholder="ICS No." name='ics_number' id="ics_number" required>
-                                 
-                                </div>
-                                <input type="checkbox" id="ics_number_check" name="ics_number_check" value="No ICS No.">
-                                <label style="padding-top:5px;" for="ics_number_check"> <small>&nbsp;No ICS No.</small></label><br>
+
+
+                    <div class="font-weight-bold">
+                               Value
+                        </div>
+                            <div style="width:300px;">
+                            <select name="sp_categories" id="sp_categories" data-placeholder="Choose a Category" class="form-control" required>
+                                    <option value="" disabled selected>Select a Category</option>
+                                    <option value="HV">High Value</option>
+                                    <option value="LV">Low Value</option>
+                            </select>
                             </div>
+                        </div>
+                             
                     </div>
 
                     <div class="header-row flex-container">
@@ -175,67 +168,50 @@
                     </div>
 
                     <div>
-                         <div class="font-weight-bold">
-                                   Location
-                         </div>
-
-                                <div style="width:300px;">
-                                    <input class="form-control" placeholder="Location" name='location' id="location" required>
+                    <div class="font-weight-bold">
+                                    ICS No.
                                 </div>
-
-                                <input type="checkbox" id="location_check" name="location_check" value="No Location">
-                                <label style="padding-top:5px;" for="location_check"> <small>&nbsp;No Location Data</small></label>
-                         </div>
+                                <div style="width:300px;">
+                                    <input class="form-control" placeholder="ICS No." name='ics_number' id="ics_number" required>
+                                 
+                                </div>
+                                <input type="checkbox" id="ics_number_check" name="ics_number_check" value="No ICS No.">
+                                <label style="padding-top:5px;" for="ics_number_check"> <small>&nbsp;No ICS No.</small></label><br>
+                            </div>
                     </div>
 
                     <div class="show_pcv_by_list">
                          <div class="font-weight-bold">
                               PCV by
                          </div>
-
-                                <div style="width:300px;">
-                                <select name="pcv_by" id="pcv_by" data-placeholder="Choose Staff" class="form-control">
-                                <option value="" disabled selected>Choose a Staff</option>
-                                <option value="Alex G. Calibo">Alex G. Calibo</option>
-                                <option value="Lexter D. Dia">Lexter D. Dia</option>
-                                <option value="Jonathan Peñalosa">Jonathan Peñalosa</option>
-                                <option value="Jovan Rivera">Jovan Rivera</option>
-                                </select>
-                                </div>
-                    </div>
-
-                    
-
-                    <div class="header-row flex-container">
-                        <div class="flex-grow-1">
-                                <div class="font-weight-bold">
-                                  Property No. <a href="#" class="btn btn-primary btn-sm" id="addPropertyNumber" style="border-radius: 100px"><i class="fa fa-plus"></i></a>
-                                </div>
-                                <div style="width:300px;">
-                                <input class="form-control" placeholder="Property No." name='property_number' id="property_number" required>
-                                </div>
-                                <span class="property_numbers">
-                              
-                              </span>
-                         </div>
-                           
-                         <div>
-                               <div class="font-weight-bold">
-                                   Unit of Measure
-                                </div>
-                                <div style="width:300px;">
-                                <select name="prop_umeasure" id="prop_umeasure" data-placeholder="Choose a Unit of Measure..." class="form-control" required>
-                                        <option value="" disabled selected>Select Unit of Measure</option>
-                                        <option value="unit">unit</option>
-                                        <option value="set">set</option>
-                                </select>
-                                </div>
-                         </div>
+                        <div style="width:300px;">
+                        <select name="pcv_by" id="pcv_by" data-placeholder="Choose Staff" class="form-control">
+                        <option value="" disabled selected>Choose a Staff</option>
+                        <option value="Alex G. Calibo">Alex G. Calibo</option>
+                        <option value="Lexter D. Dia">Lexter D. Dia</option>
+                        <option value="Jonathan Peñalosa">Jonathan Peñalosa</option>
+                        <option value="Jovan Rivera">Jovan Rivera</option>
+                        </select>
+                        </div>
                     </div>
 
                     <div class="header-row flex-container">
                         <div class="flex-grow-1">
+                            <div>
                                 <div class="font-weight-bold">
+                                    Unit of Measure
+                                </div>
+                                <div style="width:300px;">
+                                    <select name="prop_umeasure" id="prop_umeasure" data-placeholder="Choose a Unit of Measure..." class="form-control" required>
+                                            <option value="" disabled selected>Select Unit of Measure</option>
+                                            <option value="unit">unit</option>
+                                            <option value="set">set</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                        <div class="font-weight-bold">
                                 Date of ICS
                                 </div>
                                 <div style="width:300px;">
@@ -245,7 +221,11 @@
                                 <label style="padding-top:5px;" for="date_ics_check"> <small>&nbsp;No Date of ICS</small></label><br>
                         
                         </div>
-                        <div>
+
+                    </div>
+
+                    <div class="header-row flex-container">
+                        <div class="flex-grow-1">
                                <div class="font-weight-bold">
                                 Date Acquired 
                                 </div>
@@ -254,7 +234,22 @@
                                 </div>
                                 <input type="checkbox" id="date_acquired_check" name="date_acquired_check" value="No Date Acquired">
                                 <label style="padding-top:5px;" for="date_acquired_check"> <small>&nbsp;No Date Acquired</small></label><br>
-                            </div>
+                         </div>
+
+                         
+                        <div>
+                        <div class="font-weight-bold">
+                               Location
+                         </div>
+
+                                <div style="width:300px;">
+                                    <input class="form-control" placeholder="Location" name='location' id="location" required>
+                                </div>
+
+                                <input type="checkbox" id="location_check" name="location_check" value="No Location">
+                                <label style="padding-top:5px;" for="location_check"> <small>&nbsp;No Location Data</small></label>
+                     
+                        </div>
                     </div>
                 </div>
                 <div style="float:right;">
@@ -264,6 +259,7 @@
                     <table id="property-table" class="property-table"  style="border: 1px solid black;  text-align: center;">
                         <thead class="solid-borders">
                             <tr class="solid-borders">
+                                <th class="solid-borders">Property Number</th>
                                 <th class="solid-borders">Inventory Item Number</th>
                                 <th class="solid-borders">Sub-Category</th>
                                 <th class="solid-borders">Category</th>

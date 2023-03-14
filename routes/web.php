@@ -42,7 +42,6 @@ Route::post('transfer-equipment','EquipmentController@transfer');
 
 //ICS
 Route::post('save-ics', 'EquipmentController@storeics');
-Route::post('save-ics2', 'EquipmentController@storeics2');
 Route::post('update-ics', 'EquipmentController@updateics');
 Route::get('ics/accept-ics/{id}','EquipmentController@acceptics');
 Route::post('transfer-ics','EquipmentController@transferics');
@@ -110,6 +109,12 @@ Route::post('update/ics-type', 'LibraryController@updateICSType');
 Route::get('delete/ics-type/{id}', 'LibraryController@deleteICSType');
 Route::get('get/ics-type/{id}', 'LibraryController@updateICSTypeShowData');
 
+// Last Used Number Series
+Route::get('last-used-series', 'LibraryController@lastUsedSeriesNumber');
+Route::get('last-used-series-table', 'LibraryController@lastUsedSeriesNumberTable');
+Route::get('get/last-used-series/{id}', 'LibraryController@lastUsedSeriesNumberShowData');
+Route::post('update/last-used-series', 'LibraryController@lastUsedSeriesNumberUpdate');
+
 //FROM ANDROID DEVICE EXCLUDE CSRF TOKEN
 Route::get('android/details/{prop_num}', 'AndroidController@index');
 Route::post('android/insert', 'AndroidController@create');
@@ -159,6 +164,7 @@ Route::post('generate-ledgercard', 'ReportsController@save_ledgercard_details');
 
 // Users Management
 Route::get('users-management-table', 'UsersController@usersList');
+Route::get('user/details/{id}', 'UsersController@getUserDetails');
 
 // Project Staff Management
 Route::get('projectstaff-management-table', 'UsersController@projectStaffList');
@@ -181,8 +187,8 @@ Route::get('documents', function () {
 });
 
 // Property Number Automation
-Route::get('/supplies-get-previous-id', 'Supplies\SuppliesController@getPreviousId')->name('supplies-getprevious-id');
-Route::get('/ppe-get-previous-id', 'PPE\PPEController@getPreviousId')->name('ppe-getprevious-id');
+Route::get('/ics-get-previous-id', 'Supplies\SuppliesController@getPreviousIdICS')->name('ics-getprevious-id');
+Route::get('/par-get-previous-id', 'PPE\PPEController@getPreviousIdPAR')->name('par-getprevious-id');
 
 
 // Disposal Module
@@ -190,3 +196,9 @@ Route::get('/ppe-disposal', 'PPE\PPEController@for_disposal_ppe')->name('ppe-dis
 Route::get('/ppe-diposed', 'PPE\PPEController@disposed_ppe')->name('ppe-disposed');
 Route::get('/supplies-disposal', 'Supplies\SuppliesController@for_disposal_supplies')->name('supplies-disposal');
 Route::get('/supplies-diposed', 'Supplies\SuppliesController@disposed_supplies')->name('supplies-disposed');
+
+
+// Additional Features
+// Delete Component Function
+Route::get('ppe/delete-components/{id}','PPE\PPEController@delete_component');
+Route::get('ics/delete-components/{id}','Supplies\SuppliesController@delete_component');

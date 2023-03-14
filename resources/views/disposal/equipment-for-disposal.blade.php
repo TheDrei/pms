@@ -566,7 +566,7 @@ Swal.fire({
             width: '100%',
         });
 
-        $.getJSON("{{ route('ppe-getprevious-id') }}", function(datajson) {
+        $.getJSON("{{ route('par-getprevious-id') }}", function(datajson) {
                 var current_date = new Date();
                 var type = ""; 
                 var current_month=('0'+(current_date.getMonth()+1)).slice(-2)

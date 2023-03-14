@@ -19,7 +19,6 @@
   <!-- <form method="POST" name="frm2" id="frm2" action="{{ url('update-equipment')}}"> -->
 
                             @csrf
-
                              <input type="hidden" name="equipment_id" id="equipment_id" value="{{ $data['equipment_data']['id'] }}">
                              <input type="hidden" name="equipment_sets" id="equipment_sets" value="{{ $data['equipment_sets']['equip_id'] }}">    
                              <input type="hidden" name="equipment_sets_components" id="equipment_sets_components" value="{{ $data['equipment_sets_components']['equip_id'] }}">                                
@@ -126,17 +125,13 @@
                                 <div class="card-header">
                                
                             
-                                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                                <a class="replace-tab-text nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#sub-item-1" role="tab" aria-controls="nav-home" aria-selected="true">Set 1</a>
-                                            </div>
-                                        </nav>
+                  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                      <a class="replace-tab-text nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#sub-item-1" role="tab" aria-controls="nav-home" aria-selected="true">Set 1</a>
+                  </div>
+              </nav>
 
- <div class="tab-content pl-3 pt-2" id="nav-tabContent">
+              <div class="tab-content pl-3 pt-2" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="sub-item-1" role="tabpanel" aria-labelledby="nav-home-tab">
-                                
-
-
-
                          <div class="row form-group">
                           <div class="col col-md-2"><label for="text-input" class=" form-control-label">Property No.</label></div>
                         <div class="col-12 col-md-6">

@@ -122,6 +122,7 @@
                                 <li class="uk-active"><a href="{{ url('library-subcategory') }}"><i class="fa fa-database"></i> Sub-Category</a></li>
                                 <li class="uk-active"><a href="{{ url('library-ics-type') }}"><i class="fa fa-database"></i> ICS Type</a></li>
                                 <li class="uk-active"><a href="{{ url('library-fund-cluster') }}"><i class="fa fa-database"></i> Fund Cluster</a></li>
+                                <li class="uk-active"><a href="{{ url('last-used-series') }}"><i class="fa fa-database"></i> Last Used Series Number</a></li>
                                 </ul>
                             </li>
                         </ul>

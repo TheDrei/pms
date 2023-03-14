@@ -8,9 +8,9 @@ use Auth;
 
 class PPEController 
 {
-    public function getPreviousId()
+    public function getPreviousIdPAR()
     {
-      $previousId = DB::table('equipment_sets_components')->max('id');
+      $previousId = DB::table('last_used_series')->where('id', 1)->max('last_used_series');
       return response()->json(['previous_id' => $previousId]);
     }
 
@@ -21,6 +21,15 @@ class PPEController
     public function disposed_ppe()
     {
         return view('disposal.equipment-disposed');
+    }
+
+    public function delete_component($id)
+    {
+       
+        $ppe_items = new App\Equipment_Set_Components;
+        $ppe_items->where('id',$id)
+        ->delete();
+        return redirect()->back()->with('message-deleted','Success');
     }
  }
 

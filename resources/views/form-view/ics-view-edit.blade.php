@@ -172,22 +172,9 @@
                     </div>
 
                     <div class="header-row flex-container">
-                        <div class="flex-grow-1">
+                           <div class="flex-grow-1">
                                 <div class="font-weight-bold">
-                                  Property No. <a href="#" class="btn btn-primary btn-sm" id="editAddPropertyNumber" style="border-radius: 200px;"><i class="fa fa-plus"></i></a>
-                                </div>
-                                <div style="width:300px;">
-                                <input class="form-control" placeholder="Property No." name='update_property_number' id="update_property_number" required>
-                                </div>
-
-                                <div style="width:300px;" class="update_property_numbers">
-
-                                </div>
-                         </div>
-                           
-                         <div>
-                               <div class="font-weight-bold">
-                                   Unit of Measure
+                                Unit of Measure
                                 </div>
                                 <div style="width:300px;">
                                 <select name="update_prop_umeasure" id="update_prop_umeasure" data-placeholder="Choose a Unit of Measure..." class="form-control" required>
@@ -196,19 +183,20 @@
                                         <option value="set">set</option>
                                 </select>
                                 </div>
-                         </div>
+                            </div>
+                       
+                            <div>
+                            <div class="font-weight-bold">
+                                    Date of ICS
+                                    </div>
+                                    <div style="width:300px;">
+                                    <input type="date" name="update_date_ics" id="update_date_ics" class="form-control" required>
+                                    </div>
+                                
+                            </div>
                     </div>
 
                     <div class="header-row flex-container">
-                        <div class="flex-grow-1">
-                                <div class="font-weight-bold">
-                                Date of ICS
-                                </div>
-                                <div style="width:300px;">
-                                <input type="date" name="update_date_ics" id="update_date_ics" class="form-control" required>
-                                </div>
-                             
-                        </div>
                         <div>
                                <div class="font-weight-bold">
                                 Date Acquired 
@@ -227,6 +215,7 @@
                     <table id="edit-property-table" class="edit-property-table"  style="border: 1px solid black;  text-align: center;">
                         <thead class="solid-borders">
                             <tr class="solid-borders">
+                                <th class="solid-borders">Property Number</th>
                                 <th class="solid-borders">Inventory Item Number</th>
                                 <th class="solid-borders">Sub-Category</th>
                                 <th class="solid-borders">Category</th>

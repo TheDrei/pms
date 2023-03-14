@@ -80,6 +80,11 @@ class UsersController extends Controller
                   ], 200);
     }   
 
+    public function getUserDetails($id)
+    {
+        return json_encode(HRMS_Users::where('id',$id)->get()->where('deleted_at', NULL));
+    }   
+
     public function projectStaffList(Request $request) {
         $table = Project_Staff::where('deleted_at', NULL);
         $totalCount = (clone $table)->count();

@@ -767,7 +767,7 @@ Swal.fire({
             });
         });
 
-    $.getJSON("{{ route('supplies-getprevious-id') }}", function(datajson) {
+    $.getJSON("{{ route('ics-getprevious-id') }}", function(datajson) {
             $("#sp_categories").on('change',  function() {
               var value = this.value;
               var current_date = new Date();

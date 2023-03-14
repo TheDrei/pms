@@ -12,9 +12,6 @@
     text-align:center;
   }
 
-  body {
-    font-family: Arial, sans-serif;
-  }
 
   td {
     font-size: 12px;
@@ -36,17 +33,18 @@
 </style>
 <title>Property Card</title>
 </head>
-<div style = "text-align:center;"><strong>PROPERTY CARD</strong></div><br/>
-<div style = "float:left;">Entity Name: <strong>DOST-PCAARRD</strong></div>
-<div style = "float:right;">Fund Cluster: 
-<strong>
-@foreach ($data as $index => $equipment)
- @if($index == 0)
-{{ $equipment->fund_cluster }}
-@endif
-@endforeach
-</strong>
-</div>
+  <div style = "text-align:center;"><strong>PROPERTY CARD</strong></div><br/>
+  <div style = "float:left;">Entity Name: <strong>DOST-PCAARRD</strong></div>
+  <div style = "float:right;">
+    Fund Cluster: 
+    <strong>
+    @foreach ($data as $index => $equipment)
+    @if($index == 0)
+    {{ $equipment->fund_cluster }}
+    @endif
+    @endforeach
+    </strong>
+  </div>
 
 <!-- TABLE HERE -->
 <center>
@@ -58,29 +56,22 @@
             <td colspan="3" style="" class="custom-td">Property, Plant and Equipment:</td>
             <td colspan="4" style="" class="custom-td">
             @foreach ($data as $equipment)
-            @for ($i = 0; $i <= 0; $i++)
             {{ $equipment->classification }}<br/>
-            @endfor
             @endforeach
             </td>
             <td style="border-bottom:none!important; padding-top:1em!important;" class="custom-td">Property Number:</td>
         </tr>
         <tr>
             <td colspan="3" style="" class="custom-td">Description:</td>
-            <td colspan="4" style="" class="custom-td"> @foreach ($data as $equipment)
-            @for ($i = 0; $i <= 0; $i++)
-            {{ $equipment->component_name }}<br/>SN: {{ $equipment->serial_num }}
-            @endfor
+            <td colspan="4" style="" class="custom-td"> 
+            @foreach ($data as $equipment)
+            {{ $equipment->component_name }}<br/>SN: {{ $equipment->serial_num }}<br/><br/>
             @endforeach
             </td>
             
             <td style="border-top:none!important; font-weight:bold; text-align:center; vertical-align:top; padding-bottom:1em;" class="custom-td"> 
             @foreach ($data as $index => $equipment)
-            @if($index == 0)
             {{ $equipment->property_number }}<br/><br/>
-            {{ $equipment->property_number_1 }}<br/><br/>
-            {{ $equipment->property_number_2 }}
-            @endif
             @endforeach
             </td>
         </tr>
@@ -91,7 +82,8 @@
             @if($index == 0)
             {{ $equipment->remarks_from }}
             @endif
-          @endforeach<br>Sales Invoice No.:&nbsp; @foreach ($data as $index => $equipment)
+            @endforeach<br>
+            Sales Invoice No.:&nbsp; @foreach ($data as $index => $equipment)
             @if($index == 0)
             {{ $equipment->remarks_sales }}
             @endif
@@ -190,10 +182,11 @@
             </td>
 
             <td style="" class="custom-td text-center"><div align="center"> @foreach ($data as $index => $equipment)
-              @if($index == 0)
-              {{ number_format($equipment->amount, 2) }}
+            @if($index == 0)
+            {{ number_format($equipment->amount, 2) }}
             @endif
-            @endforeach</div>
+            @endforeach
+            </div>
             </td>
 
             <td style="" class="custom-td">
@@ -205,11 +198,20 @@
             </td>
         </tr>
         <tr>
-        <td style="" class="custom-td text-center"> 
-            <br>
+            <td style="" class="custom-td text-center"> 
+            @foreach ($data as $index => $equipment)
+              @if($index == 0)
+              {{ date('d M y', strtotime( $equipment->remarks_sales_date)) }}
+              @endif
+            @endforeach
             </td>
 
             <td style="" class="custom-td text-center">
+            @foreach ($data as $index => $equipment)
+              @if($index == 0)
+              Sales Invoice No. {{  $equipment->remarks_sales }}
+              @endif
+            @endforeach
             </td>
 
             <td style="" class="custom-td text-center">
@@ -325,35 +327,7 @@
          </tr>  
 
 
-         <tr>
-          <td style="" class="custom-td text-center"> 
-              <br>
-              </td>
-
-              <td style="" class="custom-td text-center">
-              </td>
-
-              <td style="" class="custom-td text-center">
-              </td>
-
-              <td style="" class="custom-td text-center"> 
-              </td>
-
-              <td style="" class="custom-td text-left">  
-              <span style="text-transform: uppercase;"> 
-              </td>
-
-              <td style="" class="custom-td text-center"> 
-              </td>
-
-              <td style="" class="custom-td text-center">
-                <div align="center"> </div>
-              </td>
-
-              <td style="" class="custom-td">
-            
-              </td>
-         </tr>  
+        
 
           
       
